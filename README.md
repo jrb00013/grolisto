@@ -35,3 +35,12 @@ See `.env.example` and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 ## License
 
 MIT
+
+## Related docs
+
+- [API](docs/API.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Scotr](docs/SCOTR.md)
+- [RAG](docs/RAG.md)
+- [Math](docs/MATH.md)
+- [Deployment](docs/DEPLOYMENT.md)
