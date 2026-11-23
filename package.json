@@ -1,0 +1,44 @@
+{
+  "name": "grolisto",
+  "version": "0.1.0",
+  "description": "Budget-aware meal planning with Scotr store pricing, Qdrant RAG, and OpenRouter model-tier routing",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node scripts/seed.js",
+    "index:recipes": "node scripts/index-recipes.js",
+    "test": "node --test test/**/*.test.js",
+    "lint": "node --check src/server.js && node --check src/app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrb00013/grolisto.git"
+  },
+  "keywords": [
+    "recipes",
+    "meal-planning",
+    "rag",
+    "qdrant",
+    "openrouter",
+    "scotr"
+  ],
+  "author": "jrb00013",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jrb00013/grolisto/issues"
+  },
+  "homepage": "https://github.com/jrb00013/grolisto#readme",
+  "dependencies": {
+    "@qdrant/js-client-rest": "^1.13.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nanoid": "^5.1.0",
+    "zod": "^3.24.1"
+  }
+}
