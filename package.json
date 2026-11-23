@@ -10,7 +10,8 @@
     "seed": "node scripts/seed.js",
     "index:recipes": "node scripts/index-recipes.js",
     "test": "node --test test/**/*.test.js",
-    "lint": "node --check src/server.js && node --check src/app.js"
+    "lint": "node --check src/server.js && node --check src/app.js",
+    "smoke": "node scripts/smoke-plan.js"
   },
   "engines": {
     "node": ">=20"
