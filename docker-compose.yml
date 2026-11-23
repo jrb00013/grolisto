@@ -1,0 +1,24 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "${QDRANT_HOST_PORT:-6333}:6333"
+      - "${QDRANT_HOST_GRPC_PORT:-6334}:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__API_KEY: ${QDRANT_API_KEY:-}
+
+  grolisto:
+    build: .
+    ports:
+      - "${PORT:-3847}:3847"
+    env_file:
+      - .env
+    environment:
+      QDRANT_URL: http://qdrant:6333
+    depends_on:
+      - qdrant
+
+volumes:
+  qdrant_data:
