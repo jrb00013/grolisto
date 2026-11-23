@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grolisto — budget meals near you</title>
+    <meta
+      name="description"
+      content="Grolisto plans meals around your budget, neighboring store prices, allergies, and tastes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="atmosphere" aria-hidden="true"></div>
+
+    <header class="hero">
+      <p class="brand">Grolisto</p>
+      <h1>Eat well inside the number.</h1>
+      <p class="lede">
+        Pick a budget, nearby store, and meal rhythm — Grolisto fills the week without breaking allergies or the bank.
+      </p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#planner">Build a plan</a>
+        <a class="btn ghost" href="#chat">Ask the kitchen</a>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="produce-band"></div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section id="planner" class="planner" aria-labelledby="planner-title">
+        <h2 id="planner-title">This week’s plan</h2>
+        <p class="section-lede">One form. One store. A full meal map.</p>
+
+        <form id="plan-form" class="plan-form">
+          <div class="field-row">
+            <label class="field">
+              <span>Budget ($)</span>
+              <input id="budget" name="budget" type="number" min="10" step="1" value="80" required />
+            </label>
+            <label class="field">
+              <span>Days</span>
+              <input id="days" name="days" type="number" min="1" max="14" value="5" required />
+            </label>
+            <label class="field">
+              <span>ZIP</span>
+              <input id="zip" name="zip" type="text" inputmode="numeric" maxlength="10" value="10001" />
+            </label>
+          </div>
+
+          <fieldset class="meals">
+            <legend>Meals</legend>
+            <label><input type="checkbox" name="meal" value="breakfast" /> Breakfast</label>
+            <label><input type="checkbox" name="meal" value="lunch" checked /> Lunch</label>
+            <label><input type="checkbox" name="meal" value="dinner" checked /> Dinner</label>
+          </fieldset>
+
+          <div class="field-row">
+            <label class="field grow">
+              <span>Allergies <em>(comma-separated)</em></span>
+              <input id="allergies" name="allergies" type="text" placeholder="peanut, shellfish, dairy" />
+            </label>
+            <label class="field grow">
+              <span>Likes <em>(comma-separated)</em></span>
+              <input id="likes" name="likes" type="text" placeholder="spicy, beans, citrus" />
+            </label>
+          </div>
+
+          <div class="field-row store-row">
+            <label class="field grow">
+              <span>Neighboring store</span>
+              <select id="storeId" name="storeId" required>
+                <option value="">Loading stores…</option>
+              </select>
+            </label>
+            <button type="button" id="reload-stores" class="btn ghost small">Reload stores</button>
+          </div>
+
+          <label class="field">
+            <span>Notes</span>
+            <textarea id="notes" name="notes" rows="2" placeholder="Batch cook Sundays, keep dinners under 30 minutes…"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary" id="generate-btn">Generate plan</button>
+            <p id="plan-status" class="status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <div id="plan-result" class="plan-result" hidden></div>
+      </section>
+
+      <aside id="chat" class="chat" aria-labelledby="chat-title">
+        <h2 id="chat-title">Kitchen chat</h2>
+        <p class="section-lede">Tweaks, swaps, and “what else fits the budget?”</p>
+        <div id="chat-log" class="chat-log" aria-live="polite"></div>
+        <form id="chat-form" class="chat-form">
+          <label class="sr-only" for="chat-input">Message</label>
+          <textarea id="chat-input" rows="2" placeholder="Can we swap Friday dinner for something bean-forward?"></textarea>
+          <button type="submit" class="btn primary">Send</button>
+        </form>
+      </aside>
+    </main>
+
+    <footer class="foot">
+      <span>Grolisto</span>
+      <span class="mute">Scotr prices · OpenRouter · preference learning</span>
+    </footer>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
