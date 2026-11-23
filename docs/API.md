@@ -10,3 +10,7 @@
 | GET/POST | `/api/prefs/:userId` | prefs JSON | continuous learning store |
 
 Static UI: `/` (Express `public/`).
+
+## CORS
+
+Express enables `cors()` for local UI and same-origin static hosting. Lock origins via env in a later hardening pass if needed.
