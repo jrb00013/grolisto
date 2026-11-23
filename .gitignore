@@ -17,3 +17,8 @@ __pycache__/
 tmp/
 .cache/
 .env
+data/chat-sessions/
+data/chat-sessions/*
+!data/chat-sessions/.gitkeep
+data/users/*
+!data/users/.gitkeep

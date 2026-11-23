@@ -1,82 +1,179 @@
 import { Router } from 'express';
-import { routedChat } from '../services/openrouter/modelRouter.js';
-import { loadPrefs, savePrefs } from '../services/prefs/store.js';
-import { recordFeedback } from '../services/prefs/learn.js';
-import { config } from '../lib/config.js';
+import {
+  handleUserTurn,
+  openSession,
+  patchSessionContext,
+} from '../services/chat/orchestrate.js';
+import { loadSession, listSessions, deleteSession } from '../services/chat/sessions.js';
+import { optionalAuth } from '../middleware/auth.js';
 
 const router = Router();
 
-router.post('/', async (req, res, next) => {
+function userIdFrom(req, body = {}) {
+  return req.userId || body.userId || 'default';
+}
+
+/** Create a chat session (server owns history). */
+router.post('/sessions', optionalAuth, async (req, res, next) => {
   try {
-    if (!config.openRouterApiKey) {
-      res.status(503).json({ error: 'OPENROUTER_API_KEY not configured' });
+    const body = req.body || {};
+    const session = await openSession({
+      userId: userIdFrom(req, body),
+      title: body.title,
+      workingMemory: body.workingMemory || body.context || undefined,
+    });
+    res.status(201).json({
+      session: {
+        id: session.id,
+        userId: session.userId,
+        title: session.title,
+        workingMemory: session.workingMemory,
+        createdAt: session.createdAt,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/sessions', optionalAuth, async (req, res, next) => {
+  try {
+    const sessions = await listSessions(userIdFrom(req, req.query), {
+      limit: Number(req.query.limit) || 20,
+    });
+    res.json({ sessions });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/sessions/:id', optionalAuth, async (req, res, next) => {
+  try {
+    const session = await loadSession(req.params.id);
+    if (!session) {
+      res.status(404).json({ error: 'session not found' });
       return;
     }
-    const { messages = [], userId = 'default', context = {} } = req.body || {};
-    const prefs = await loadPrefs(userId);
-
-    const system = {
-      role: 'system',
-      content: [
-        'You are Grolisto, a budget meal-planning assistant.',
-        'Parse likes, allergies, budget, meal slots, and store preferences from the user.',
-        'When you learn a preference, end with a JSON line: {"prefsUpdate":{"likes":[],"allergies":[],"dislikes":[]}}',
-        `Known prefs: ${JSON.stringify({
-          likes: prefs.likes,
-          dislikes: prefs.dislikes,
-          allergies: prefs.allergies,
-          taste: prefs.taste,
-          profile: prefs.profile,
-          staplesCookedWell: prefs.staplesCookedWell,
-          cookingStyle: prefs.cookingStyle,
-          memoryBlurb: prefs.memoryBlurb,
-          recent: (prefs.recentRecipeIds || []).slice(0, 8),
-        })}`,
-        'Remember this household past when suggesting meals: do not only repeat staples; propose twists/new plates in their cheap-to-mid lane, never peas.',
-        context && Object.keys(context).length ? `Context: ${JSON.stringify(context)}` : '',
-      ]
-        .filter(Boolean)
-        .join('\n'),
-    };
-
-    const routed = await routedChat({
-      task: {
-        days: context.days || 1,
-        mealSlots: context.meals || ['dinner'],
-        allergyCount: (prefs.allergies || []).length,
-        likedCount: (prefs.likes || []).length,
-        chatTurns: messages.length,
+    res.json({
+      session: {
+        id: session.id,
+        userId: session.userId,
+        title: session.title,
+        messages: session.messages,
+        workingMemory: session.workingMemory,
+        pinnedFacts: session.pinnedFacts,
+        rollingSummary: session.rollingSummary,
+        meta: session.meta,
+        updatedAt: session.updatedAt,
       },
-      messages: [system, ...messages],
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Patch working memory (plan, budget, store) without a chat turn. */
+router.patch('/sessions/:id/context', optionalAuth, async (req, res, next) => {
+  try {
+    const body = req.body || {};
+    const session = await patchSessionContext(req.params.id, {
+      userId: userIdFrom(req, body),
+      workingMemory: body.workingMemory || body.context || body,
+    });
+    res.json({
+      session: {
+        id: session.id,
+        workingMemory: session.workingMemory,
+        title: session.title,
+        updatedAt: session.updatedAt,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Append a user message; server packs context + returns assistant reply. */
+router.post('/sessions/:id/messages', optionalAuth, async (req, res, next) => {
+  try {
+    const body = req.body || {};
+    const result = await handleUserTurn({
+      sessionId: req.params.id,
+      userId: userIdFrom(req, body),
+      content: body.content ?? body.message,
+      workingMemoryPatch: body.workingMemory || body.context || null,
+      feedback: body.feedback || null,
+    });
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete('/sessions/:id', optionalAuth, async (req, res, next) => {
+  try {
+    const ok = await deleteSession(req.params.id);
+    if (!ok) {
+      res.status(404).json({ error: 'session not found' });
+      return;
+    }
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * Backward-compatible one-shot: creates an ephemeral session, posts one message.
+ * Prefer /sessions + /messages for real clients.
+ */
+router.post('/', optionalAuth, async (req, res, next) => {
+  try {
+    const body = req.body || {};
+    const userId = userIdFrom(req, body);
+    const session = await openSession({
+      userId,
+      workingMemory: body.context || body.workingMemory,
     });
 
-    const prefsUpdateMatch = routed.content.match(/\{"prefsUpdate"\s*:\s*\{[\s\S]*?\}\s*\}/);
-    if (prefsUpdateMatch) {
-      try {
-        const { prefsUpdate } = JSON.parse(prefsUpdateMatch[0]);
-        const merged = {
-          ...prefs,
-          likes: [...new Set([...(prefs.likes || []), ...(prefsUpdate.likes || [])])],
-          allergies: [...new Set([...(prefs.allergies || []), ...(prefsUpdate.allergies || [])])],
-          dislikes: [...new Set([...(prefs.dislikes || []), ...(prefsUpdate.dislikes || [])])],
-        };
-        await savePrefs(userId, merged);
-      } catch {
-        /* ignore partial JSON */
-      }
+    // Seed prior client messages (except last user) into session if provided
+    const prior = Array.isArray(body.messages) ? body.messages : [];
+    const lastUser = [...prior].reverse().find((m) => m.role === 'user');
+    const content =
+      body.content ||
+      body.message ||
+      lastUser?.content ||
+      prior.filter((m) => m.role === 'user').slice(-1)[0]?.content;
+
+    if (!content) {
+      res.status(400).json({ error: 'content or messages[].user required' });
+      return;
     }
 
-    if (context.feedback?.recipeId) {
-      await recordFeedback(userId, {
-        recipeId: context.feedback.recipeId,
-        tags: context.feedback.tags || [],
-        liked: Boolean(context.feedback.liked),
-      });
+    // Persist earlier turns so packer has history
+    if (prior.length) {
+      const { appendMessage, saveSession } = await import('../services/chat/sessions.js');
+      for (const m of prior) {
+        if (m === lastUser) continue;
+        if (m.role === 'user' || m.role === 'assistant') {
+          appendMessage(session, { role: m.role, content: String(m.content || '') });
+        }
+      }
+      await saveSession(session);
     }
+
+    const result = await handleUserTurn({
+      sessionId: session.id,
+      userId,
+      content,
+      workingMemoryPatch: body.context || body.workingMemory || null,
+      feedback: body.feedback || body.context?.feedback || null,
+    });
 
     res.json({
-      reply: routed.content,
-      route: { tier: routed.tier, model: routed.model, complexity: routed.complexity },
+      ...result,
+      // legacy field
+      reply: result.reply,
     });
   } catch (err) {
     next(err);

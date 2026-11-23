@@ -484,3 +484,14 @@ textarea:focus {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.intent-tag {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--citrus);
+  padding: 0.15rem 0.4rem;
+}
