@@ -40,6 +40,23 @@ const schema = z.object({
   embeddingModel: z.string().min(1),
   rerankModel: z.string().min(1),
 
+
+  authJwtSecret: z.string().min(16),
+  authJwtTtl: z.string().min(1),
+  authUsersPath: z.string().min(1),
+  defaultCalorieGoal: z.coerce.number().positive(),
+  defaultWeeklyBudget: z.coerce.number().positive(),
+  fdcApiKey: z.string().optional().default(''),
+  fdcBaseUrl: z.string().url(),
+  fdcCacheTtlMs: z.coerce.number().int().positive(),
+
+
+  chatSessionsPath: z.string().min(1),
+  chatContextTokenBudget: z.coerce.number().int().positive(),
+  chatRecentTurns: z.coerce.number().int().positive(),
+  chatSummaryTriggerTurns: z.coerce.number().int().positive(),
+  chatMaxMessageChars: z.coerce.number().int().positive(),
+
   prefsPath: z.string().min(1),
   noveltyDecay: z.coerce.number().min(0).max(1),
   noveltyFloor: z.coerce.number().min(0).max(1),
@@ -78,6 +95,23 @@ function loadConfig(env = process.env) {
     qdrantPlans: env.QDRANT_COLLECTION_PLANS,
     embeddingModel: env.EMBEDDING_MODEL,
     rerankModel: env.RERANK_MODEL,
+
+
+    authJwtSecret: env.AUTH_JWT_SECRET,
+    authJwtTtl: env.AUTH_JWT_TTL,
+    authUsersPath: env.AUTH_USERS_PATH,
+    defaultCalorieGoal: env.DEFAULT_CALORIE_GOAL,
+    defaultWeeklyBudget: env.DEFAULT_WEEKLY_BUDGET,
+    fdcApiKey: env.FDC_API_KEY,
+    fdcBaseUrl: env.FDC_BASE_URL,
+    fdcCacheTtlMs: env.FDC_CACHE_TTL_MS,
+
+
+    chatSessionsPath: env.CHAT_SESSIONS_PATH,
+    chatContextTokenBudget: env.CHAT_CONTEXT_TOKEN_BUDGET,
+    chatRecentTurns: env.CHAT_RECENT_TURNS,
+    chatSummaryTriggerTurns: env.CHAT_SUMMARY_TRIGGER_TURNS,
+    chatMaxMessageChars: env.CHAT_MAX_MESSAGE_CHARS,
 
     prefsPath: env.PREFS_PATH,
     noveltyDecay: env.NOVELTY_DECAY,

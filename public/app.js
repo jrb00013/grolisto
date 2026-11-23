@@ -1,4 +1,5 @@
-const USER_ID = 'default';
+const USER_ID = localStorage.getItem('grolisto_user_id') || 'default';
+const TOKEN = localStorage.getItem('grolisto_token') || '';
 
 const els = {
   form: document.getElementById('plan-form'),
@@ -18,8 +19,9 @@ const els = {
   chatLog: document.getElementById('chat-log'),
 };
 
-/** @type {{ role: string, content: string }[]} */
-const chatHistory = [];
+/** Server-owned chat session id */
+let sessionId = localStorage.getItem('grolisto_chat_session') || null;
+let lastPlan = null;
 
 function splitList(value) {
   return String(value || '')
@@ -42,9 +44,15 @@ function money(n) {
   return `$${Number(n).toFixed(2)}`;
 }
 
+function authHeaders() {
+  const h = { 'Content-Type': 'application/json' };
+  if (TOKEN) h.Authorization = `Bearer ${TOKEN}`;
+  return h;
+}
+
 async function api(path, options = {}) {
   const res = await fetch(path, {
-    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+    headers: { ...authHeaders(), ...(options.headers || {}) },
     ...options,
   });
   const text = await res.text();
@@ -60,9 +68,8 @@ async function api(path, options = {}) {
   return data;
 }
 
-function contextPayload() {
+function workingMemory(extra = {}) {
   return {
-    userId: USER_ID,
     budget: Number(els.budget.value),
     days: Number(els.days.value),
     meals: selectedMeals(),
@@ -70,7 +77,52 @@ function contextPayload() {
     likes: splitList(els.likes.value),
     storeId: els.storeId.value || undefined,
     zip: els.zip.value || undefined,
+    notes: els.notes.value.trim(),
+    activePlan: lastPlan,
+    ...extra,
   };
+}
+
+async function ensureSession() {
+  if (sessionId) {
+    try {
+      await api(`/api/chat/sessions/${sessionId}`);
+      return sessionId;
+    } catch {
+      sessionId = null;
+      localStorage.removeItem('grolisto_chat_session');
+    }
+  }
+  const data = await api('/api/chat/sessions', {
+    method: 'POST',
+    body: JSON.stringify({ userId: USER_ID, workingMemory: workingMemory() }),
+  });
+  sessionId = data.session.id;
+  localStorage.setItem('grolisto_chat_session', sessionId);
+  return sessionId;
+}
+
+async function syncSessionContext() {
+  const id = await ensureSession();
+  await api(`/api/chat/sessions/${id}/context`, {
+    method: 'PATCH',
+    body: JSON.stringify({ userId: USER_ID, workingMemory: workingMemory() }),
+  });
+}
+
+function appendBubble(role, content, meta) {
+  const div = document.createElement('div');
+  div.className = `bubble ${role}`;
+  div.textContent = content;
+  if (meta?.intent) {
+    const tag = document.createElement('span');
+    tag.className = 'intent-tag';
+    tag.textContent = meta.intent;
+    div.appendChild(document.createElement('br'));
+    div.appendChild(tag);
+  }
+  els.chatLog.appendChild(div);
+  els.chatLog.scrollTop = els.chatLog.scrollHeight;
 }
 
 async function loadStores() {
@@ -87,7 +139,11 @@ async function loadStores() {
     els.storeId.innerHTML = stores
       .map((s) => {
         const id = s.id || s.storeId;
-        const label = [s.name || s.chain || id, s.address || s.zip, s.distanceMiles != null ? `${Number(s.distanceMiles).toFixed(1)} mi` : null]
+        const label = [
+          s.name || s.chain || id,
+          s.address || s.zip,
+          s.distanceMiles != null ? `${Number(s.distanceMiles).toFixed(1)} mi` : null,
+        ]
           .filter(Boolean)
           .join(' · ');
         return `<option value="${String(id)}">${label}</option>`;
@@ -99,7 +155,16 @@ async function loadStores() {
   }
 }
 
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
+
 function renderPlan(payload) {
+  lastPlan = payload;
   const plan = payload.plan || payload;
   const allocation = payload.allocation || {};
   const days = plan.days || [];
@@ -149,22 +214,6 @@ function renderPlan(payload) {
   `;
 }
 
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
-
-function appendBubble(role, content) {
-  const div = document.createElement('div');
-  div.className = `bubble ${role}`;
-  div.textContent = content;
-  els.chatLog.appendChild(div);
-  els.chatLog.scrollTop = els.chatLog.scrollHeight;
-}
-
 els.form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const meals = selectedMeals();
@@ -194,9 +243,10 @@ els.form.addEventListener('submit', async (e) => {
     const data = await api('/api/plan', { method: 'POST', body: JSON.stringify(body) });
     renderPlan(data);
     setStatus('Plan ready.');
+    await syncSessionContext();
     appendBubble(
       'assistant',
-      `Plan generated for ${body.days} days (${meals.join(', ')}) at ~${money(data.allocation?.perMealBudget)} per meal.`,
+      `Plan locked into this chat session — ask for swaps and I’ll keep budget, store, and allergies in working memory.`,
     );
   } catch (err) {
     setStatus(err.message, true);
@@ -211,22 +261,26 @@ els.chatForm.addEventListener('submit', async (e) => {
   if (!content) return;
 
   els.chatInput.value = '';
-  chatHistory.push({ role: 'user', content });
   appendBubble('user', content);
+  els.chatForm.querySelector('button').disabled = true;
 
   try {
-    const data = await api('/api/chat', {
+    const id = await ensureSession();
+    const data = await api(`/api/chat/sessions/${id}/messages`, {
       method: 'POST',
       body: JSON.stringify({
-        messages: chatHistory,
-        context: contextPayload(),
+        userId: USER_ID,
+        content,
+        workingMemory: workingMemory(),
       }),
     });
-    const reply = data.reply || '(empty reply)';
-    chatHistory.push({ role: 'assistant', content: reply });
-    appendBubble('assistant', reply);
+    appendBubble('assistant', data.reply || '(empty reply)', {
+      intent: data.intent,
+    });
   } catch (err) {
     appendBubble('assistant', `Sorry — ${err.message}`);
+  } finally {
+    els.chatForm.querySelector('button').disabled = false;
   }
 });
 
@@ -234,4 +288,11 @@ els.reloadStores.addEventListener('click', () => loadStores());
 els.zip.addEventListener('change', () => loadStores());
 
 loadStores();
-appendBubble('assistant', 'Tell me what you want to cook this week — or generate a plan first.');
+ensureSession()
+  .then(() =>
+    appendBubble(
+      'assistant',
+      'Session ready. Generate a plan or tell me constraints — I keep budget, store, allergies, and plan state server-side.',
+    ),
+  )
+  .catch((err) => appendBubble('assistant', `Could not start chat session: ${err.message}`));
