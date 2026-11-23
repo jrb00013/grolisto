@@ -9,6 +9,7 @@ import planRouter from './routes/plan.js';
 import chatRouter from './routes/chat.js';
 import prefsRouter from './routes/prefs.js';
 import { logger } from './lib/logger.js';
+import { requestId } from './middleware/requestId.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, '../public');
@@ -17,6 +18,7 @@ export function createApp() {
   const app = express();
 
   app.use(cors());
+  app.use(requestId);
   app.use(express.json({ limit: '1mb' }));
   app.use(express.static(publicDir));
 
