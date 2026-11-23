@@ -17,6 +17,9 @@ Rules:
 - Respect hard allergy constraints always.
 - Stay inside the weekly budget in working memory when proposing swaps.
 - Prefer novelty vs recentRecipeIds; do not suggest the same dish week after week.
+- Never suggest peas if dislikes include peas.
+- When an active Kustie week card is present, prefer those hand-planned meals for "what should we cook this week" and point to htmlPath / pdfPath.
+- Do not only repeat household staples (tomato pasta, tikka, burgers, sloppy joes); offer twists/new plates in their cheap-to-mid lane.
 - Be concise and actionable.
 - When you extract lasting preferences, include a final fenced JSON block ONLY:
 \`\`\`json
@@ -39,7 +42,7 @@ function compactPlan(plan) {
   return { days, totals };
 }
 
-export function buildContextLayers({ session, prefs = {}, ragSnippets = [] }) {
+export function buildContextLayers({ session, prefs = {}, ragSnippets = [], weekCard = null }) {
   const wm = session.workingMemory || {};
   const pinned = session.pinnedFacts || {};
 
@@ -52,6 +55,10 @@ export function buildContextLayers({ session, prefs = {}, ragSnippets = [] }) {
     constraints: pinned.constraints || [],
     taste: prefs.taste || {},
     recentRecipeIds: (prefs.recentRecipeIds || []).slice(0, 12),
+    staplesCookedWell: prefs.staplesCookedWell || [],
+    cookingStyle: prefs.cookingStyle || {},
+    householdProfile: prefs.profile || {},
+    memoryBlurb: prefs.memoryBlurb || '',
   };
 
   const working = {
@@ -65,10 +72,22 @@ export function buildContextLayers({ session, prefs = {}, ragSnippets = [] }) {
     activePlan: compactPlan(wm.activePlan),
   };
 
+  const kustie = weekCard
+    ? {
+        id: weekCard.id,
+        label: weekCard.label,
+        htmlPath: weekCard.htmlPath,
+        pdfPath: weekCard.pdfPath,
+        notes: weekCard.notes,
+        meals: weekCard.meals,
+      }
+    : null;
+
   return {
     system: SYSTEM_POLICY,
     profile,
     working,
+    kustie,
     summary: session.rollingSummary || '',
     ragSnippets: (ragSnippets || []).slice(0, 5),
     recent: (session.messages || []).filter((m) => m.role === 'user' || m.role === 'assistant'),
@@ -102,7 +121,10 @@ export function packMessages(layers, { budgetTokens = config.chatContextTokenBud
       JSON.stringify(layers.profile),
       '## Working memory',
       JSON.stringify(layers.working),
-    ].join('\n'),
+      layers.kustie ? `## Active Kustie week card\n${JSON.stringify(layers.kustie)}` : '',
+    ]
+      .filter(Boolean)
+      .join('\n'),
   );
 
   if (layers.summary) {

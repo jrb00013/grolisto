@@ -25,9 +25,20 @@ Open `PUBLIC_BASE_URL` (default from `.env`).
 
 See `.env.example` and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
+## Kustie week cards
+
+Hand-planned lunch/dinner cards (photos + recipes + PDF) live inside Grolisto:
+
+- UI: [`/kustie/`](public/kustie/index.html)
+- PDF: [`/kustie/Kustie-Nov-23-26.pdf`](public/kustie/Kustie-Nov-23-26.pdf)
+- Data: [`data/seed/weeks/`](data/seed/weeks/)
+- API: `GET /api/weeks`, `GET /api/weeks/current`
+
+`npm run seed` loads household prefs + week cards. Chat uses the active Kustie week when you ask what to cook.
+
 ## Stack
 
-- Express one-page UI + chat API
+- Express one-page UI + chat API + Kustie week cards
 - Scotr → Kroger Locations/Products (mock seed fallback)
 - RAG → Qdrant hybrid retrieve + rerank
 - Planner math → [docs/MATH.md](docs/MATH.md)

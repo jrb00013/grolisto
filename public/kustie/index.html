@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kustie — Nov 23–26 · Grolisto</title>
+  <meta name="description" content="Grolisto week card: new cheap-to-mid lunch and dinner ideas for two. Nov 23–26." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #141810;
+      --mute: #4a5240;
+      --paper: #e7eadf;
+      --leaf: #2f4a28;
+      --leaf-deep: #1c2e18;
+      --butter: #e8c547;
+      --steam: #dfe4d4;
+      --line: rgba(20, 24, 16, 0.12);
+      --shadow: 0 24px 60px rgba(20, 24, 16, 0.18);
+      --radius: 18px;
+      --max: 1120px;
+      --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--font-body);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #f3f5ea 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #d5dfc4 0%, transparent 45%),
+        linear-gradient(180deg, #eef1e6 0%, var(--paper) 40%, #d9e0cf 100%);
+      line-height: 1.55;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+
+    .hero {
+      position: relative;
+      min-height: min(88vh, 760px);
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero__media { position: absolute; inset: 0; z-index: -2; }
+    .hero__media img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: scale(1.04);
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .hero__shade {
+      position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(180deg, rgba(20,24,16,0.2) 0%, rgba(20,24,16,0.12) 35%, rgba(20,24,16,0.8) 100%);
+    }
+    .hero__inner {
+      padding: 2.5rem 0 3rem; color: #f5f7ef; max-width: 40rem;
+      animation: rise 0.9s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .brand {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(3.4rem, 10vw, 6.2rem); line-height: 0.9;
+      letter-spacing: -0.04em; margin: 0 0 0.85rem;
+      text-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    }
+    .hero__tag {
+      margin: 0 0 1.35rem; font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      font-weight: 500; max-width: 34ch; color: #e8edd9;
+    }
+    .hero__meta { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.45rem 0.85rem; border: 1px solid rgba(245,247,239,0.28);
+      background: rgba(20,24,16,0.35); backdrop-filter: blur(8px);
+      border-radius: 999px; font-size: 0.85rem; font-weight: 500;
+    }
+    .chip--butter { background: var(--butter); color: var(--ink); border-color: transparent; font-weight: 600; }
+
+    .strip { margin-top: -1.4rem; position: relative; z-index: 2; }
+    .strip__card {
+      background: color-mix(in srgb, var(--paper) 88%, white);
+      border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 1.35rem 1.5rem;
+      display: grid; gap: 1rem;
+      animation: rise 1s 0.12s cubic-bezier(.2,.8,.2,1) both;
+    }
+    @media (min-width: 760px) {
+      .strip__card { grid-template-columns: 1.5fr 1fr 1fr; gap: 1.4rem; }
+    }
+    .strip h2 {
+      font-family: var(--font-display); font-size: 1.3rem;
+      margin: 0 0 0.35rem; letter-spacing: -0.02em;
+    }
+    .strip p { margin: 0; color: var(--mute); font-size: 0.95rem; }
+    .strip strong { color: var(--ink); font-weight: 600; }
+
+    .daynav {
+      position: sticky; top: 0; z-index: 20; margin: 1.6rem 0 0.4rem;
+      padding: 0.7rem 0;
+      background: color-mix(in srgb, var(--paper) 82%, transparent);
+      backdrop-filter: blur(12px);
+    }
+    .daynav__row {
+      display: flex; gap: 0.5rem; overflow-x: auto;
+      scrollbar-width: none; padding-bottom: 0.1rem;
+    }
+    .daynav__row::-webkit-scrollbar { display: none; }
+    .daynav a {
+      flex: 0 0 auto; padding: 0.6rem 1rem; border-radius: 999px;
+      background: var(--steam); font-family: var(--font-display);
+      font-weight: 700; font-size: 0.95rem; letter-spacing: -0.02em;
+    }
+    .daynav a[aria-current="true"] { background: var(--leaf); color: #f3f6eb; }
+
+    .day { padding: 2.1rem 0 0.8rem; scroll-margin-top: 5rem; }
+    .day__head {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 1.15rem;
+    }
+    .day__title {
+      font-family: var(--font-display); font-size: clamp(2rem, 5vw, 2.7rem);
+      margin: 0; letter-spacing: -0.035em; line-height: 1;
+    }
+    .day__note { margin: 0; color: var(--mute); font-size: 0.95rem; }
+    .meals { display: grid; gap: 1.2rem; }
+    @media (min-width: 860px) { .meals { grid-template-columns: 1fr 1fr; } }
+
+    .meal {
+      background: #f4f6ee; border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 4px); overflow: hidden;
+      display: flex; flex-direction: column;
+      animation: rise 0.7s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .meal__photo { aspect-ratio: 16 / 11; overflow: hidden; background: #c5cdb4; }
+    .meal__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .meal__body {
+      padding: 1.1rem 1.15rem 1.3rem; display: flex;
+      flex-direction: column; gap: 0.8rem; flex: 1;
+    }
+    .meal__slot {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--leaf);
+    }
+    .meal__name {
+      font-family: var(--font-display); font-size: 1.4rem;
+      letter-spacing: -0.03em; margin: 0; line-height: 1.15;
+    }
+    .meal__blurb { margin: 0; color: var(--mute); font-size: 0.95rem; }
+    .meal__stats { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .stat {
+      font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.65rem;
+      border-radius: 999px; background: var(--steam); color: var(--ink);
+    }
+    .stat--new { background: var(--butter); }
+
+    details.recipe {
+      border-top: 1px solid var(--line); padding-top: 0.8rem; margin-top: auto;
+    }
+    details.recipe > summary {
+      cursor: pointer; list-style: none; font-family: var(--font-display);
+      font-weight: 700; font-size: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+      user-select: none;
+    }
+    details.recipe > summary::-webkit-details-marker { display: none; }
+    details.recipe > summary::after { content: "+"; font-size: 1.3rem; color: var(--leaf); }
+    details.recipe[open] > summary::after { content: "−"; }
+    .recipe__panel { padding-top: 0.85rem; display: grid; gap: 1rem; }
+    .recipe__panel h4 {
+      margin: 0 0 0.4rem; font-family: var(--font-display); font-size: 0.95rem;
+    }
+    .ings { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.3rem; }
+    .ings li {
+      display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.5rem;
+      font-size: 0.92rem; padding: 0.3rem 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .ings li:last-child { border-bottom: 0; }
+    .qty { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--leaf-deep); }
+    .steps {
+      margin: 0; padding-left: 1.15rem; display: grid; gap: 0.5rem;
+      font-size: 0.92rem; color: var(--mute);
+    }
+    .steps strong { color: var(--ink); }
+    .tips {
+      margin: 0; padding: 0.7rem 0.85rem; background: var(--steam);
+      border-radius: 12px; font-size: 0.88rem; color: var(--mute);
+    }
+
+    .shop {
+      margin: 2rem 0 3.2rem; padding: 1.7rem;
+      border-radius: calc(var(--radius) + 6px);
+      background: var(--leaf-deep); color: #eef2e4; box-shadow: var(--shadow);
+    }
+    .shop h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 3.5vw, 2.05rem);
+      margin: 0 0 0.4rem; letter-spacing: -0.03em;
+    }
+    .shop > p { margin: 0 0 1.2rem; color: #c5d0b4; max-width: 52ch; }
+    .shop__grid { display: grid; gap: 1rem; }
+    @media (min-width: 700px) { .shop__grid { grid-template-columns: repeat(3, 1fr); } }
+    .shop__col h3 {
+      margin: 0 0 0.5rem; font-size: 0.78rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--butter);
+    }
+    .shop__col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.35rem; font-size: 0.92rem; }
+    .shop__col li { padding: 0.25rem 0; border-bottom: 1px solid rgba(238,242,228,0.12); }
+
+    footer {
+      padding: 0 0 2.4rem; color: var(--mute); font-size: 0.85rem; text-align: center;
+    }
+    footer strong { font-family: var(--font-display); color: var(--ink); font-weight: 700; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes drift {
+      from { transform: scale(1.04) translate3d(0,0,0); }
+      to { transform: scale(1.08) translate3d(-1.2%, -0.8%, 0); }
+    }
+
+    @media print {
+      body { background: white; }
+      .hero { min-height: 420px; break-after: page; }
+      .hero__media img { animation: none; }
+      .daynav { display: none; }
+      .meal { break-inside: avoid; box-shadow: none; }
+      details.recipe { open: true; }
+      details.recipe[open] > summary::after,
+      details.recipe > summary::after { display: none; }
+      .shop { break-inside: avoid; }
+      @page { margin: 0.55in; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__media" aria-hidden="true">
+      <img src="meals/hero.jpg" alt="" width="1200" height="800" />
+    </div>
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <p class="brand">Kustie</p>
+      <p class="hero__tag">Nov 23–26 · eight meals you don’t already cook every week. Same comfort lane, new plates. Part of Grolisto.</p>
+      <div class="hero__meta">
+        <span class="chip chip--butter">New ideas · twists</span>
+        <span class="chip">2 people · ~160 / ~230 lb</span>
+        <span class="chip">No peas</span>
+        <a class="chip" href="/">← Grolisto</a>
+        <a class="chip" href="/kustie/Kustie-Nov-23-26.pdf">PDF</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="strip wrap">
+      <div class="strip__card">
+        <div>
+          <h2>Not the greatest hits on loop</h2>
+          <p>Your staples (tomato pasta, tikka, burgers, sloppy joes) stay in the fridge memory — this card is <strong>what else people eat</strong>: stir-fry, loaded potato, stroganoff, sandwiches, alfredo, enchiladas.</p>
+        </div>
+        <div>
+          <h2>Portions</h2>
+          <p>Sized for one woman (~160 lb) + one man (~230 lb). Cheap-to-mid spend. Frozen veg is fine.</p>
+        </div>
+        <div>
+          <h2>Flavor nudge</h2>
+          <p>You cook a little bland — each recipe has a one-line punch-up (garlic, chili, acid) without getting fancy.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="daynav" aria-label="Jump to day">
+      <div class="wrap daynav__row">
+        <a href="#mon" aria-current="true">Mon 23</a>
+        <a href="#tue">Tue 24</a>
+        <a href="#wed">Wed 25</a>
+        <a href="#thu">Thu 26</a>
+        <a href="#shop">Shop list</a>
+      </div>
+    </nav>
+
+    <section class="day wrap" id="mon">
+      <div class="day__head">
+        <h2 class="day__title">Monday · Nov 23</h2>
+        <p class="day__note">Beef &amp; broccoli + chicken chorizo rice</p>
+      </div>
+      <div class="meals">
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/beef-broccoli.jpg" alt="Beef and broccoli stir-fry in a skillet" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Lunch</span>
+            <h3 class="meal__name">Beef &amp; broccoli stir-fry</h3>
+            <p class="meal__blurb">Takeout classic at home. Thin steak strips, frozen broccoli, sticky soy-garlic sauce over rice.</p>
+            <div class="meal__stats">
+              <span class="stat">~30 min</span>
+              <span class="stat">~$11–14</span>
+              <span class="stat stat--new">New</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients (2 hungry)</h4>
+                  <ul class="ings">
+                    <li><span class="qty">1.25 lb</span><span>sirloin or flank, thin strips</span></li>
+                    <li><span class="qty">16 oz</span><span>frozen broccoli florets</span></li>
+                    <li><span class="qty">1½ cups</span><span>dry rice</span></li>
+                    <li><span class="qty">⅓ cup</span><span>soy sauce</span></li>
+                    <li><span class="qty">2 tbsp</span><span>brown sugar or honey</span></li>
+                    <li><span class="qty">4 cloves</span><span>garlic, minced</span></li>
+                    <li><span class="qty">1 tbsp</span><span>cornstarch + 2 tbsp water</span></li>
+                    <li><span class="qty">2 tbsp</span><span>oil + black pepper</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Start rice. Mix soy, sugar, garlic, cornstarch slurry.</li>
+                    <li>Hot skillet + oil. Sear beef hard in batches, 1–2 min. Remove.</li>
+                    <li>Steam/sauté broccoli 4–5 min. Return beef, pour sauce, toss until glossy.</li>
+                    <li>Serve over rice. Bigger beef pile for him.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Punch-up:</strong> chili flakes + splash of vinegar in the sauce.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/chicken-chorizo-rice.jpg" alt="Chicken and chorizo rice baked in a dish" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Dinner</span>
+            <h3 class="meal__name">Chicken &amp; chorizo rice pot</h3>
+            <p class="meal__blurb">One pan, paprika-stained rice, chicken thighs, sausage. Feeds hard with almost no dishes.</p>
+            <div class="meal__stats">
+              <span class="stat">~45 min</span>
+              <span class="stat">~$12–15</span>
+              <span class="stat stat--new">New</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients</h4>
+                  <ul class="ings">
+                    <li><span class="qty">1.75 lb</span><span>bone-in chicken thighs</span></li>
+                    <li><span class="qty">8 oz</span><span>chorizo or smoked sausage, sliced</span></li>
+                    <li><span class="qty">1½ cups</span><span>dry rice</span></li>
+                    <li><span class="qty">1</span><span>onion + 1 bell pepper (or frozen peppers)</span></li>
+                    <li><span class="qty">3 cups</span><span>chicken broth</span></li>
+                    <li><span class="qty">2 tsp</span><span>smoked paprika + 3 garlic cloves</span></li>
+                    <li><span class="qty">2 tbsp</span><span>oil + salt/pepper</span></li>
+                    <li><span class="qty">optional</span><span>lemon wedges</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Oven <strong>400°F</strong>. Brown chicken skin-side down in oil; set aside. Brown sausage.</li>
+                    <li>Sauté onion/pepper/garlic. Stir in rice + paprika 1 min.</li>
+                    <li>Add broth. Nestle chicken on top. Cover; bake 30–35 min until rice tender + chicken 165°F.</li>
+                    <li>Rest 5 min. Lemon if you have it.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Budget swap:</strong> turkey kielbasa instead of fancy chorizo.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="day wrap" id="tue">
+      <div class="day__head">
+        <h2 class="day__title">Tuesday · Nov 24</h2>
+        <p class="day__note">Loaded potato + beef stroganoff</p>
+      </div>
+      <div class="meals">
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/loaded-potato.jpg" alt="Loaded baked potato with toppings" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Lunch</span>
+            <h3 class="meal__name">Loaded baked potatoes</h3>
+            <p class="meal__blurb">Potato night, but stuffed — butter, cheese, leftover chicken or ground beef, corn, sour cream. No peas.</p>
+            <div class="meal__stats">
+              <span class="stat">~55 min</span>
+              <span class="stat">~$7–10</span>
+              <span class="stat stat--new">Twist</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients</h4>
+                  <ul class="ings">
+                    <li><span class="qty">2 huge</span><span>russets (or 4 medium)</span></li>
+                    <li><span class="qty">2 tbsp</span><span>butter + ½ cup shredded cheddar</span></li>
+                    <li><span class="qty">½ cup</span><span>sour cream or Greek yogurt</span></li>
+                    <li><span class="qty">1 cup</span><span>cooked chicken or browned ground beef</span></li>
+                    <li><span class="qty">½ cup</span><span>frozen corn, thawed</span></li>
+                    <li><span class="qty">2</span><span>green onions, sliced (optional)</span></li>
+                    <li><span class="qty">salt</span><span>+ pepper + garlic powder</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Oven <strong>425°F</strong>. Rub potatoes with oil + salt. Bake 45–55 min until soft.</li>
+                    <li>Split open; fluff insides with butter, salt, garlic powder.</li>
+                    <li>Load with meat, corn, cheese; melt 3 min. Dollop sour cream.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Man plate:</strong> give him the bigger potato + extra meat scoop.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/beef-stroganoff.jpg" alt="Beef stroganoff over egg noodles with asparagus" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Dinner</span>
+            <h3 class="meal__name">Beef stroganoff over egg noodles</h3>
+            <p class="meal__blurb">Creamy mushroom beef people actually make on weeknights. Frozen green beans on the side — skip peas.</p>
+            <div class="meal__stats">
+              <span class="stat">~40 min</span>
+              <span class="stat">~$13–16</span>
+              <span class="stat stat--new">New</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients</h4>
+                  <ul class="ings">
+                    <li><span class="qty">1.25 lb</span><span>beef tips or ground beef</span></li>
+                    <li><span class="qty">12 oz</span><span>egg noodles</span></li>
+                    <li><span class="qty">8 oz</span><span>mushrooms, sliced (or canned drained)</span></li>
+                    <li><span class="qty">1</span><span>onion, sliced</span></li>
+                    <li><span class="qty">2 cups</span><span>beef broth</span></li>
+                    <li><span class="qty">¾ cup</span><span>sour cream</span></li>
+                    <li><span class="qty">2 tbsp</span><span>butter + 1 tbsp flour</span></li>
+                    <li><span class="qty">1 tbsp</span><span>Worcestershire + pepper</span></li>
+                    <li><span class="qty">12 oz</span><span>frozen green beans</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Boil noodles. Brown beef; remove. Sauté onion + mushrooms in butter.</li>
+                    <li>Stir flour 1 min. Add broth + Worcestershire; simmer thick, 5 min.</li>
+                    <li>Off heat, stir sour cream + beef. Toss with noodles. Cook green beans.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Cheaper:</strong> ground beef stroganoff tastes nearly as good.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="day wrap" id="wed">
+      <div class="day__head">
+        <h2 class="day__title">Wednesday · Nov 25</h2>
+        <p class="day__note">Chicken sandwiches + alfredo twist</p>
+      </div>
+      <div class="meals">
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/chicken-sandwich.jpg" alt="Grilled chicken sandwiches on brioche buns" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Lunch</span>
+            <h3 class="meal__name">Spicy chicken sandwiches + wedges</h3>
+            <p class="meal__blurb">Burger energy, different protein. Charred chicken, hot mayo, roasted peppers, potato wedges.</p>
+            <div class="meal__stats">
+              <span class="stat">~35 min</span>
+              <span class="stat">~$10–13</span>
+              <span class="stat stat--new">Twist</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients</h4>
+                  <ul class="ings">
+                    <li><span class="qty">1.25 lb</span><span>chicken breast or thighs, pounded</span></li>
+                    <li><span class="qty">2</span><span>brioche or burger buns</span></li>
+                    <li><span class="qty">¼ cup</span><span>mayo + 1–2 tsp hot sauce</span></li>
+                    <li><span class="qty">½ cup</span><span>jarred roasted red peppers</span></li>
+                    <li><span class="qty">handful</span><span>lettuce or spinach</span></li>
+                    <li><span class="qty">1.5 lb</span><span>potatoes, wedges</span></li>
+                    <li><span class="qty">2 tbsp</span><span>oil + paprika, salt, pepper</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Oven <strong>425°F</strong>. Wedges + oil + paprika → 30 min, flip once.</li>
+                    <li>Season chicken hard; skillet medium-high 4–5 min/side to 165°F.</li>
+                    <li>Toast buns. Spread spicy mayo, stack chicken, peppers, greens.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Punch-up:</strong> more hot sauce in the mayo than you think.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/chicken-alfredo.jpg" alt="Chicken alfredo pasta with broccoli and peppers in a skillet" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Dinner</span>
+            <h3 class="meal__name">Chicken alfredo primavera</h3>
+            <p class="meal__blurb">Pasta lane, not tomato night. Creamy garlic sauce, chicken, frozen broccoli + peppers.</p>
+            <div class="meal__stats">
+              <span class="stat">~30 min</span>
+              <span class="stat">~$10–13</span>
+              <span class="stat stat--new">Twist</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients</h4>
+                  <ul class="ings">
+                    <li><span class="qty">12 oz</span><span>penne or farfalle</span></li>
+                    <li><span class="qty">1.25 lb</span><span>chicken, sliced</span></li>
+                    <li><span class="qty">2 cups</span><span>frozen broccoli</span></li>
+                    <li><span class="qty">1 cup</span><span>frozen pepper strips</span></li>
+                    <li><span class="qty">1 cup</span><span>heavy cream or half-and-half</span></li>
+                    <li><span class="qty">½ cup</span><span>Parmesan</span></li>
+                    <li><span class="qty">4 cloves</span><span>garlic + 2 tbsp butter</span></li>
+                    <li><span class="qty">½ cup</span><span>pasta water + salt/pepper/chili</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Boil pasta; drop broccoli in last 3 min. Drain; save pasta water.</li>
+                    <li>Sear seasoned chicken; remove. Soften garlic in butter; add peppers 2 min.</li>
+                    <li>Add cream; simmer. Melt Parmesan. Toss chicken + pasta + broccoli + splash of pasta water.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Bland fix:</strong> black pepper + chili flakes until it wakes up.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="day wrap" id="thu">
+      <div class="day__head">
+        <h2 class="day__title">Thursday · Nov 26</h2>
+        <p class="day__note">Potato hash + enchilada bake</p>
+      </div>
+      <div class="meals">
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/potato-hash.jpg" alt="Potato and ham hash in a cast iron skillet" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Lunch</span>
+            <h3 class="meal__name">Potato &amp; sausage breakfast skillet</h3>
+            <p class="meal__blurb">Breakfast-for-lunch. Crispy potatoes, sausage or ham, onions, eggs on top. Cheap and heavy.</p>
+            <div class="meal__stats">
+              <span class="stat">~30 min</span>
+              <span class="stat">~$8–11</span>
+              <span class="stat stat--new">New</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients</h4>
+                  <ul class="ings">
+                    <li><span class="qty">1.5 lb</span><span>potatoes, cubed</span></li>
+                    <li><span class="qty">10 oz</span><span>breakfast sausage or diced ham</span></li>
+                    <li><span class="qty">1</span><span>onion, diced</span></li>
+                    <li><span class="qty">4</span><span>eggs</span></li>
+                    <li><span class="qty">2 tbsp</span><span>oil + salt/pepper/paprika</span></li>
+                    <li><span class="qty">optional</span><span>shredded cheese + hot sauce</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Microwave potato cubes 5 min. Crisp in hot oil 8–10 min.</li>
+                    <li>Push aside; brown sausage/ham + onion. Mix. Season hard.</li>
+                    <li>Make wells; crack eggs. Cover 3–4 min until whites set. Cheese if you want.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Leftover hack:</strong> last night’s potatoes work great here.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="meal">
+          <div class="meal__photo">
+            <img src="meals/chicken-enchiladas.jpg" alt="Cheesy chicken enchiladas being served from a baking dish" width="900" height="620" loading="lazy" />
+          </div>
+          <div class="meal__body">
+            <span class="meal__slot">Dinner</span>
+            <h3 class="meal__name">Cheesy chicken enchilada bake</h3>
+            <p class="meal__blurb">Tortillas, shredded chicken, jarred enchilada sauce, melted cheese. Casserole energy for two with leftovers.</p>
+            <div class="meal__stats">
+              <span class="stat">~40 min</span>
+              <span class="stat">~$11–14</span>
+              <span class="stat stat--new">New</span>
+            </div>
+            <details class="recipe" open>
+              <summary>Ingredients &amp; recipe</summary>
+              <div class="recipe__panel">
+                <div>
+                  <h4>Ingredients</h4>
+                  <ul class="ings">
+                    <li><span class="qty">1.5 lb</span><span>cooked shredded chicken (rotisserie OK)</span></li>
+                    <li><span class="qty">8</span><span>flour tortillas</span></li>
+                    <li><span class="qty">1 can</span><span>(~15–19 oz) red enchilada sauce</span></li>
+                    <li><span class="qty">2 cups</span><span>shredded Mexican cheese blend</span></li>
+                    <li><span class="qty">½</span><span>onion, sautéed (optional)</span></li>
+                    <li><span class="qty">1 cup</span><span>frozen corn (no peas)</span></li>
+                    <li><span class="qty">top</span><span>sour cream + green onion if you have</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Steps</h4>
+                  <ol class="steps">
+                    <li>Oven <strong>375°F</strong>. Mix chicken, corn, onion, ½ cup sauce, ½ cup cheese.</li>
+                    <li>Fill tortillas; roll into a greased 9×13. Pour rest of sauce; cover with cheese.</li>
+                    <li>Bake 20–25 min until bubbly. Rest 5 min. Sour cream on top.</li>
+                  </ol>
+                </div>
+                <p class="tips"><strong>Stretch:</strong> leftovers reheat for Friday lunch.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shop wrap" id="shop">
+      <h2>One shop list · Nov 23–26</h2>
+      <p>Rough total ~$55–75. Skip what you already have. Staples you already love (tikka, tomato pasta, burgers, joes) are not on this card — this list is for the new week only.</p>
+      <div class="shop__grid">
+        <div class="shop__col">
+          <h3>Meat</h3>
+          <ul>
+            <li>~1.25 lb steak strips (sirloin/flank)</li>
+            <li>~1.25 lb beef tips or ground beef</li>
+            <li>~3–3.5 lb chicken (thighs + breast)</li>
+            <li>8 oz chorizo/smoked sausage</li>
+            <li>10 oz breakfast sausage or ham</li>
+          </ul>
+        </div>
+        <div class="shop__col">
+          <h3>Produce &amp; dairy</h3>
+          <ul>
+            <li>~5 lb potatoes</li>
+            <li>2 onions, garlic, 1 bell pepper</li>
+            <li>Mushrooms 8 oz (or canned)</li>
+            <li>Butter, sour cream, cheddar, Parmesan, Mexican blend</li>
+            <li>Eggs (4+), mayo, buns, 8 tortillas</li>
+          </ul>
+        </div>
+        <div class="shop__col">
+          <h3>Pantry &amp; frozen</h3>
+          <ul>
+            <li>Rice, egg noodles, pasta (~12 oz)</li>
+            <li>Soy, broth, Worcestershire, enchilada sauce</li>
+            <li>Cream/half-and-half, cornstarch, paprika</li>
+            <li>Frozen broccoli, peppers, green beans, corn — <em>no peas</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p><strong>Kustie</strong> · Nov 23–26 · new plates for two · print-ready</p>
+  </footer>
+
+  <script>
+    const links = [...document.querySelectorAll(".daynav a")];
+    const sections = links
+      .map((a) => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
+    const onScroll = () => {
+      let current = links[0];
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= 120) {
+          current = links.find((a) => a.getAttribute("href") === `#${section.id}`);
+        }
+      }
+      links.forEach((a) => a.removeAttribute("aria-current"));
+      if (current) current.setAttribute("aria-current", "true");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

@@ -7,7 +7,7 @@
  *   npm run seed -- --user joe
  *   npm run seed -- --user default --force
  */
-import { copyFile, mkdir, readFile, writeFile, access } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, access, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -40,6 +40,13 @@ async function seedCatalog() {
     const data = JSON.parse(await readFile(p, 'utf8'));
     const n = Array.isArray(data) ? data.length : Object.keys(data).length;
     console.log(`seed ok ${f} (${n} entries)`);
+  }
+
+  const weeksDir = path.join(seedDir, 'weeks');
+  if (await exists(weeksDir)) {
+    const weeks = (await readdir(weeksDir)).filter((f) => f.endsWith('.json'));
+    console.log(`seed ok weeks/ (${weeks.length} week cards)`);
+    for (const w of weeks) console.log(`  · ${w}`);
   }
 }
 

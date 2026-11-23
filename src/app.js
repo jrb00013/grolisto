@@ -9,6 +9,7 @@ import planRouter from './routes/plan.js';
 import chatRouter from './routes/chat.js';
 import prefsRouter from './routes/prefs.js';
 import authRouter from './routes/auth.js';
+import weeksRouter from './routes/weeks.js';
 import { logger } from './lib/logger.js';
 import { requestId } from './middleware/requestId.js';
 
@@ -29,6 +30,7 @@ export function createApp() {
   app.use('/api/chat', chatRouter);
   app.use('/api/prefs', prefsRouter);
   app.use('/api/auth', authRouter);
+  app.use('/api/weeks', weeksRouter);
 
   app.use((err, _req, res, _next) => {
     logger.error('request_error', { err: String(err?.message || err) });

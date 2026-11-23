@@ -100,7 +100,15 @@ export async function handleUserTurn({
     logger.warn('chat_rag_skip', { err: String(err.message || err) });
   }
 
-  const layers = buildContextLayers({ session, prefs, ragSnippets });
+  let weekCard = null;
+  try {
+    const { loadCurrentWeek } = await import('../weeks/load.js');
+    weekCard = await loadCurrentWeek();
+  } catch {
+    /* optional */
+  }
+
+  const layers = buildContextLayers({ session, prefs, ragSnippets, weekCard });
   const packed = packMessages(layers);
 
   const routed = await routedChat({

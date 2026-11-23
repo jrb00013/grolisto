@@ -1,5 +1,6 @@
-const USER_ID = localStorage.getItem('grolisto_user_id') || 'default';
+const USER_ID = localStorage.getItem('grolisto_user_id') || 'joe';
 const TOKEN = localStorage.getItem('grolisto_token') || '';
+if (!localStorage.getItem('grolisto_user_id')) localStorage.setItem('grolisto_user_id', 'joe');
 
 const els = {
   form: document.getElementById('plan-form'),
@@ -287,12 +288,56 @@ els.chatForm.addEventListener('submit', async (e) => {
 els.reloadStores.addEventListener('click', () => loadStores());
 els.zip.addEventListener('change', () => loadStores());
 
+async function loadKustieWeek() {
+  const box = document.getElementById('kustie-card');
+  if (!box) return;
+  try {
+    const data = await api('/api/weeks/current');
+    const week = data.week;
+    if (!week) {
+      box.innerHTML = '<p class="status">No week card seeded yet.</p>';
+      return;
+    }
+    const meals = (week.meals || [])
+      .map(
+        (m) => `<li>
+          <span class="meal">${escapeHtml(m.day)} · ${escapeHtml(m.slot)}</span>
+          <span>${escapeHtml(m.title)}</span>
+        </li>`,
+      )
+      .join('');
+    box.innerHTML = `
+      <p><strong>${escapeHtml(week.label || week.id)}</strong> — ${escapeHtml(week.notes || '')}</p>
+      <ul class="day-meals">${meals}</ul>
+      <p class="mute">Open the full card for photos, quantities, and recipes.</p>
+    `;
+  } catch (err) {
+    box.innerHTML = `<p class="status error">${escapeHtml(err.message)}</p>`;
+  }
+}
+
+async function hydratePrefs() {
+  try {
+    const prefs = await api(`/api/prefs/${encodeURIComponent(USER_ID)}`);
+    if (prefs.likes?.length && !els.likes.value.trim()) {
+      els.likes.value = prefs.likes.join(', ');
+    }
+    if (prefs.allergies?.length && !els.allergies.value.trim()) {
+      els.allergies.value = prefs.allergies.join(', ');
+    }
+  } catch {
+    /* prefs optional before seed */
+  }
+}
+
 loadStores();
+loadKustieWeek();
+hydratePrefs();
 ensureSession()
   .then(() =>
     appendBubble(
       'assistant',
-      'Session ready. Generate a plan or tell me constraints — I keep budget, store, allergies, and plan state server-side.',
+      'Session ready as user joe. I know your staples + the active Kustie week card — ask what to cook Nov 23–26 or generate a priced plan.',
     ),
   )
   .catch((err) => appendBubble('assistant', `Could not start chat session: ${err.message}`));

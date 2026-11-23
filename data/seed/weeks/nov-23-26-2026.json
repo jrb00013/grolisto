@@ -1,0 +1,77 @@
+{
+  "id": "week_nov_23_26_2026",
+  "brand": "Kustie",
+  "label": "Nov 23–26 week card",
+  "start": "2026-11-23",
+  "end": "2026-11-26",
+  "userId": "joe",
+  "htmlPath": "/kustie/",
+  "pdfPath": "/kustie/Kustie-Nov-23-26.pdf",
+  "notes": "New cheap-to-mid plates for two (~160 / ~230 lb). Not the staple loop. No peas.",
+  "meals": [
+    {
+      "date": "2026-11-23",
+      "day": "Monday",
+      "slot": "lunch",
+      "title": "Beef & broccoli stir-fry",
+      "image": "/kustie/meals/beef-broccoli.jpg",
+      "estCost": [11, 14]
+    },
+    {
+      "date": "2026-11-23",
+      "day": "Monday",
+      "slot": "dinner",
+      "title": "Chicken & chorizo rice pot",
+      "image": "/kustie/meals/chicken-chorizo-rice.jpg",
+      "estCost": [12, 15]
+    },
+    {
+      "date": "2026-11-24",
+      "day": "Tuesday",
+      "slot": "lunch",
+      "title": "Loaded baked potatoes",
+      "image": "/kustie/meals/loaded-potato.jpg",
+      "estCost": [7, 10]
+    },
+    {
+      "date": "2026-11-24",
+      "day": "Tuesday",
+      "slot": "dinner",
+      "title": "Beef stroganoff over egg noodles",
+      "image": "/kustie/meals/beef-stroganoff.jpg",
+      "estCost": [13, 16]
+    },
+    {
+      "date": "2026-11-25",
+      "day": "Wednesday",
+      "slot": "lunch",
+      "title": "Spicy chicken sandwiches + wedges",
+      "image": "/kustie/meals/chicken-sandwich.jpg",
+      "estCost": [10, 13]
+    },
+    {
+      "date": "2026-11-25",
+      "day": "Wednesday",
+      "slot": "dinner",
+      "title": "Chicken alfredo primavera",
+      "image": "/kustie/meals/chicken-alfredo.jpg",
+      "estCost": [10, 13]
+    },
+    {
+      "date": "2026-11-26",
+      "day": "Thursday",
+      "slot": "lunch",
+      "title": "Potato & sausage breakfast skillet",
+      "image": "/kustie/meals/potato-hash.jpg",
+      "estCost": [8, 11]
+    },
+    {
+      "date": "2026-11-26",
+      "day": "Thursday",
+      "slot": "dinner",
+      "title": "Cheesy chicken enchilada bake",
+      "image": "/kustie/meals/chicken-enchiladas.jpg",
+      "estCost": [11, 14]
+    }
+  ]
+}
