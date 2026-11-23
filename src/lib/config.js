@@ -1,0 +1,98 @@
+import 'dotenv/config';
+import { z } from 'zod';
+
+const bool = (v) => {
+  if (typeof v === 'boolean') return v;
+  if (v == null || v === '') return undefined;
+  return ['1', 'true', 'yes', 'on'].includes(String(v).toLowerCase());
+};
+
+const schema = z.object({
+  port: z.coerce.number().int().positive().default(3847),
+  nodeEnv: z.string().default('development'),
+  publicBaseUrl: z.string().url().optional(),
+
+  openRouterApiKey: z.string().optional().default(''),
+  openRouterBaseUrl: z.string().url().default('https://openrouter.ai/api/v1'),
+  openRouterSiteUrl: z.string().optional().default(''),
+  openRouterSiteName: z.string().optional().default('grolisto'),
+
+  routeSimpleModel: z.string().min(1),
+  routeStandardModel: z.string().min(1),
+  routeComplexModel: z.string().min(1),
+  routeFallbackModel: z.string().min(1),
+  routeSimpleMax: z.coerce.number().min(0).max(1),
+  routeStandardMax: z.coerce.number().min(0).max(1),
+
+  krogerClientId: z.string().optional().default(''),
+  krogerClientSecret: z.string().optional().default(''),
+  krogerApiBase: z.string().url(),
+  scotrUseMock: z.boolean(),
+  scotrCacheTtlMs: z.coerce.number().int().positive(),
+  scotrDefaultZip: z.string().min(3),
+
+  qdrantUrl: z.string().url(),
+  qdrantApiKey: z.string().optional().default(''),
+  qdrantRecipes: z.string().min(1),
+  qdrantIngredients: z.string().min(1),
+  qdrantPrefs: z.string().min(1),
+  qdrantPlans: z.string().min(1),
+  embeddingModel: z.string().min(1),
+  rerankModel: z.string().min(1),
+
+  prefsPath: z.string().min(1),
+  noveltyDecay: z.coerce.number().min(0).max(1),
+  noveltyFloor: z.coerce.number().min(0).max(1),
+});
+
+function loadConfig(env = process.env) {
+  const raw = {
+    port: env.PORT,
+    nodeEnv: env.NODE_ENV,
+    publicBaseUrl: env.PUBLIC_BASE_URL || undefined,
+
+    openRouterApiKey: env.OPENROUTER_API_KEY,
+    openRouterBaseUrl: env.OPENROUTER_BASE_URL,
+    openRouterSiteUrl: env.OPENROUTER_SITE_URL,
+    openRouterSiteName: env.OPENROUTER_SITE_NAME,
+
+    routeSimpleModel: env.ROUTE_SIMPLE_MODEL,
+    routeStandardModel: env.ROUTE_STANDARD_MODEL,
+    routeComplexModel: env.ROUTE_COMPLEX_MODEL,
+    routeFallbackModel: env.ROUTE_FALLBACK_MODEL,
+    routeSimpleMax: env.ROUTE_COMPLEXITY_SIMPLE_MAX,
+    routeStandardMax: env.ROUTE_COMPLEXITY_STANDARD_MAX,
+
+    krogerClientId: env.KROGER_CLIENT_ID,
+    krogerClientSecret: env.KROGER_CLIENT_SECRET,
+    krogerApiBase: env.KROGER_API_BASE,
+    scotrUseMock: bool(env.SCOTR_USE_MOCK),
+    scotrCacheTtlMs: env.SCOTR_CACHE_TTL_MS,
+    scotrDefaultZip: env.SCOTR_DEFAULT_ZIP,
+
+    qdrantUrl: env.QDRANT_URL,
+    qdrantApiKey: env.QDRANT_API_KEY,
+    qdrantRecipes: env.QDRANT_COLLECTION_RECIPES,
+    qdrantIngredients: env.QDRANT_COLLECTION_INGREDIENTS,
+    qdrantPrefs: env.QDRANT_COLLECTION_PREFS,
+    qdrantPlans: env.QDRANT_COLLECTION_PLANS,
+    embeddingModel: env.EMBEDDING_MODEL,
+    rerankModel: env.RERANK_MODEL,
+
+    prefsPath: env.PREFS_PATH,
+    noveltyDecay: env.NOVELTY_DECAY,
+    noveltyFloor: env.NOVELTY_FLOOR,
+  };
+
+  const parsed = schema.safeParse(raw);
+  if (!parsed.success) {
+    const missing = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`);
+    throw new Error(
+      `Invalid config — set required env vars (see .env.example).\n${missing.join('\n')}`,
+    );
+  }
+  return Object.freeze(parsed.data);
+}
+
+export const config = loadConfig();
+export { loadConfig };
