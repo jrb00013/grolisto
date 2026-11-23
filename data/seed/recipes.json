@@ -1,0 +1,290 @@
+[
+  {
+    "id": "r_oat_bowl",
+    "title": "Berry Overnight Oats",
+    "meals": ["breakfast"],
+    "ingredients": [
+      { "key": "oats", "qty": 0.5, "unit": "cup" },
+      { "key": "milk", "qty": 0.5, "unit": "cup" },
+      { "key": "yogurt", "qty": 0.5, "unit": "cup" },
+      { "key": "berries", "qty": 0.5, "unit": "cup" },
+      { "key": "honey", "qty": 1, "unit": "tbsp" }
+    ],
+    "tags": ["vegetarian", "make-ahead", "no-cook"],
+    "allergens": ["dairy"],
+    "steps": [
+      "Mix oats, milk, and yogurt in a jar.",
+      "Top with berries and honey.",
+      "Chill overnight; stir before eating."
+    ],
+    "estServings": 1
+  },
+  {
+    "id": "r_egg_scramble",
+    "title": "Spinach Egg Scramble",
+    "meals": ["breakfast"],
+    "ingredients": [
+      { "key": "eggs", "qty": 3, "unit": "ea" },
+      { "key": "spinach", "qty": 2, "unit": "cup" },
+      { "key": "butter", "qty": 1, "unit": "tbsp" },
+      { "key": "cheddar", "qty": 0.25, "unit": "cup" }
+    ],
+    "tags": ["vegetarian", "high-protein", "quick"],
+    "allergens": ["eggs", "dairy"],
+    "steps": [
+      "Melt butter in a skillet over medium heat.",
+      "Wilt spinach, then pour in beaten eggs.",
+      "Scramble softly; fold in cheddar and serve."
+    ],
+    "estServings": 2
+  },
+  {
+    "id": "r_avocado_toast",
+    "title": "Avocado Toast with Egg",
+    "meals": ["breakfast", "lunch"],
+    "ingredients": [
+      { "key": "bread", "qty": 2, "unit": "slice" },
+      { "key": "avocado", "qty": 1, "unit": "ea" },
+      { "key": "eggs", "qty": 2, "unit": "ea" },
+      { "key": "lemon", "qty": 0.25, "unit": "ea" }
+    ],
+    "tags": ["vegetarian", "quick"],
+    "allergens": ["eggs", "gluten"],
+    "steps": [
+      "Toast bread and mash avocado with lemon.",
+      "Fry or poach eggs.",
+      "Spread avocado on toast and top with eggs."
+    ],
+    "estServings": 1
+  },
+  {
+    "id": "r_pb_banana",
+    "title": "Peanut Butter Banana Toast",
+    "meals": ["breakfast"],
+    "ingredients": [
+      { "key": "bread", "qty": 2, "unit": "slice" },
+      { "key": "peanut_butter", "qty": 2, "unit": "tbsp" },
+      { "key": "banana", "qty": 1, "unit": "ea" },
+      { "key": "honey", "qty": 1, "unit": "tsp" }
+    ],
+    "tags": ["vegetarian", "budget", "quick"],
+    "allergens": ["peanuts", "gluten"],
+    "steps": [
+      "Toast bread.",
+      "Spread peanut butter, slice banana on top, drizzle honey."
+    ],
+    "estServings": 1
+  },
+  {
+    "id": "r_chickpea_salad",
+    "title": "Lemon Chickpea Salad",
+    "meals": ["lunch"],
+    "ingredients": [
+      { "key": "chickpeas", "qty": 1, "unit": "can" },
+      { "key": "cucumber", "qty": 0.5, "unit": "ea" },
+      { "key": "tomato", "qty": 1, "unit": "ea" },
+      { "key": "lemon", "qty": 0.5, "unit": "ea" },
+      { "key": "olive_oil", "qty": 2, "unit": "tbsp" },
+      { "key": "lettuce", "qty": 2, "unit": "cup" }
+    ],
+    "tags": ["vegan", "no-cook", "mediterranean"],
+    "allergens": [],
+    "steps": [
+      "Drain chickpeas and chop cucumber and tomato.",
+      "Toss with lemon, olive oil, salt, and pepper.",
+      "Serve over lettuce."
+    ],
+    "estServings": 2
+  },
+  {
+    "id": "r_chicken_rice",
+    "title": "Garlic Chicken Rice Bowl",
+    "meals": ["lunch", "dinner"],
+    "ingredients": [
+      { "key": "chicken_breast", "qty": 0.75, "unit": "lb" },
+      { "key": "rice", "qty": 1, "unit": "cup" },
+      { "key": "broccoli", "qty": 2, "unit": "cup" },
+      { "key": "garlic", "qty": 3, "unit": "clove" },
+      { "key": "soy_sauce", "qty": 2, "unit": "tbsp" },
+      { "key": "olive_oil", "qty": 1, "unit": "tbsp" }
+    ],
+    "tags": ["high-protein", "meal-prep"],
+    "allergens": ["soy"],
+    "steps": [
+      "Cook rice per package directions.",
+      "Sauté chicken with garlic in olive oil until cooked through.",
+      "Steam broccoli; assemble bowls and drizzle soy sauce."
+    ],
+    "estServings": 3
+  },
+  {
+    "id": "r_bean_tacos",
+    "title": "Black Bean Tacos",
+    "meals": ["lunch", "dinner"],
+    "ingredients": [
+      { "key": "black_beans", "qty": 1, "unit": "can" },
+      { "key": "tortillas", "qty": 6, "unit": "ea" },
+      { "key": "onion", "qty": 0.5, "unit": "ea" },
+      { "key": "bell_pepper", "qty": 1, "unit": "ea" },
+      { "key": "cumin", "qty": 1, "unit": "tsp" },
+      { "key": "cheddar_shredded", "qty": 0.5, "unit": "cup" },
+      { "key": "avocado", "qty": 1, "unit": "ea" }
+    ],
+    "tags": ["vegetarian", "mexican", "budget"],
+    "allergens": ["dairy", "gluten"],
+    "steps": [
+      "Sauté onion and pepper with cumin.",
+      "Warm black beans; mash lightly.",
+      "Fill tortillas with beans, veggies, cheese, and avocado."
+    ],
+    "estServings": 3
+  },
+  {
+    "id": "r_tomato_pasta",
+    "title": "Weeknight Tomato Pasta",
+    "meals": ["dinner"],
+    "ingredients": [
+      { "key": "pasta", "qty": 12, "unit": "oz" },
+      { "key": "canned_tomato", "qty": 1, "unit": "can" },
+      { "key": "garlic", "qty": 4, "unit": "clove" },
+      { "key": "onion", "qty": 0.5, "unit": "ea" },
+      { "key": "olive_oil", "qty": 2, "unit": "tbsp" },
+      { "key": "spinach", "qty": 2, "unit": "cup" }
+    ],
+    "tags": ["vegetarian", "budget", "italian"],
+    "allergens": ["gluten"],
+    "steps": [
+      "Boil pasta until al dente.",
+      "Sauté onion and garlic in oil; add tomatoes and simmer.",
+      "Fold in spinach; toss with pasta."
+    ],
+    "estServings": 4
+  },
+  {
+    "id": "r_beef_chili",
+    "title": "One-Pot Beef Chili",
+    "meals": ["dinner"],
+    "ingredients": [
+      { "key": "ground_beef", "qty": 1, "unit": "lb" },
+      { "key": "black_beans", "qty": 1, "unit": "can" },
+      { "key": "canned_tomato", "qty": 1, "unit": "can" },
+      { "key": "onion", "qty": 1, "unit": "ea" },
+      { "key": "chili_powder", "qty": 2, "unit": "tbsp" },
+      { "key": "cumin", "qty": 1, "unit": "tsp" }
+    ],
+    "tags": ["high-protein", "batch-cook", "spicy"],
+    "allergens": [],
+    "steps": [
+      "Brown beef with onion; drain excess fat.",
+      "Add beans, tomatoes, and spices; simmer 25 minutes.",
+      "Taste and adjust seasoning before serving."
+    ],
+    "estServings": 4
+  },
+  {
+    "id": "r_salmon_potato",
+    "title": "Lemon Salmon with Potatoes",
+    "meals": ["dinner"],
+    "ingredients": [
+      { "key": "salmon", "qty": 1, "unit": "lb" },
+      { "key": "potato", "qty": 1.5, "unit": "lb" },
+      { "key": "lemon", "qty": 1, "unit": "ea" },
+      { "key": "olive_oil", "qty": 2, "unit": "tbsp" },
+      { "key": "broccoli", "qty": 2, "unit": "cup" }
+    ],
+    "tags": ["high-protein", "sheet-pan"],
+    "allergens": ["fish"],
+    "steps": [
+      "Toss potatoes with oil; roast at 425°F for 15 minutes.",
+      "Add salmon and broccoli; season with lemon and salt.",
+      "Roast 12–15 minutes more until salmon flakes."
+    ],
+    "estServings": 3
+  },
+  {
+    "id": "r_tofu_stirfry",
+    "title": "Tofu Veggie Stir-Fry",
+    "meals": ["lunch", "dinner"],
+    "ingredients": [
+      { "key": "tofu", "qty": 1, "unit": "block" },
+      { "key": "bell_pepper", "qty": 1, "unit": "ea" },
+      { "key": "broccoli", "qty": 2, "unit": "cup" },
+      { "key": "carrot", "qty": 1, "unit": "ea" },
+      { "key": "soy_sauce", "qty": 3, "unit": "tbsp" },
+      { "key": "rice", "qty": 1, "unit": "cup" },
+      { "key": "garlic", "qty": 2, "unit": "clove" }
+    ],
+    "tags": ["vegan", "asian", "quick"],
+    "allergens": ["soy"],
+    "steps": [
+      "Press and cube tofu; sear until golden.",
+      "Stir-fry vegetables with garlic; add soy sauce.",
+      "Serve over cooked rice."
+    ],
+    "estServings": 3
+  },
+  {
+    "id": "r_lentil_soup",
+    "title": "Hearty Lentil Soup",
+    "meals": ["lunch", "dinner"],
+    "ingredients": [
+      { "key": "lentils", "qty": 1, "unit": "cup" },
+      { "key": "carrot", "qty": 2, "unit": "ea" },
+      { "key": "onion", "qty": 1, "unit": "ea" },
+      { "key": "garlic", "qty": 3, "unit": "clove" },
+      { "key": "broth", "qty": 4, "unit": "cup" },
+      { "key": "canned_tomato", "qty": 0.5, "unit": "can" },
+      { "key": "spinach", "qty": 2, "unit": "cup" }
+    ],
+    "tags": ["vegan", "budget", "batch-cook"],
+    "allergens": [],
+    "steps": [
+      "Sauté onion, carrot, and garlic.",
+      "Add lentils, broth, and tomatoes; simmer until tender.",
+      "Stir in spinach and season to taste."
+    ],
+    "estServings": 4
+  },
+  {
+    "id": "r_sweet_potato_bowl",
+    "title": "Roasted Sweet Potato Quinoa Bowl",
+    "meals": ["lunch", "dinner"],
+    "ingredients": [
+      { "key": "sweet_potato", "qty": 2, "unit": "ea" },
+      { "key": "quinoa", "qty": 1, "unit": "cup" },
+      { "key": "chickpeas", "qty": 1, "unit": "can" },
+      { "key": "spinach", "qty": 2, "unit": "cup" },
+      { "key": "olive_oil", "qty": 2, "unit": "tbsp" },
+      { "key": "lemon", "qty": 0.5, "unit": "ea" }
+    ],
+    "tags": ["vegan", "meal-prep", "gluten-free"],
+    "allergens": [],
+    "steps": [
+      "Cube and roast sweet potatoes with oil at 400°F.",
+      "Cook quinoa; warm chickpeas.",
+      "Assemble bowls with spinach, lemon, and a pinch of salt."
+    ],
+    "estServings": 3
+  },
+  {
+    "id": "r_mushroom_noodles",
+    "title": "Garlic Mushroom Egg Noodles",
+    "meals": ["dinner"],
+    "ingredients": [
+      { "key": "egg_noodles", "qty": 12, "unit": "oz" },
+      { "key": "mushroom", "qty": 12, "unit": "oz" },
+      { "key": "garlic", "qty": 4, "unit": "clove" },
+      { "key": "butter", "qty": 2, "unit": "tbsp" },
+      { "key": "spinach", "qty": 2, "unit": "cup" },
+      { "key": "broth", "qty": 0.5, "unit": "cup" }
+    ],
+    "tags": ["vegetarian", "comfort"],
+    "allergens": ["eggs", "gluten", "dairy"],
+    "steps": [
+      "Cook egg noodles; reserve a splash of pasta water.",
+      "Sauté mushrooms and garlic in butter.",
+      "Add broth and spinach; toss with noodles."
+    ],
+    "estServings": 4
+  }
+]
