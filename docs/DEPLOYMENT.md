@@ -63,3 +63,12 @@ npm install && npm run seed && npm start
 - Keep `ROUTE_COMPLEXITY_*` thresholds so most plans hit the cheap tier
 - Cache Scotr responses (`SCOTR_CACHE_TTL_MS`)
 - Prefer free OpenRouter models for chat until product-market fit
+
+## Hosting checklist (copy)
+
+- [ ] `.env` filled from `.env.example` on host
+- [ ] OpenRouter key + `ROUTE_*` models
+- [ ] `SCOTR_USE_MOCK=true` **or** Kroger client id/secret
+- [ ] Qdrant URL (Cloud free or Compose)
+- [ ] `npm run index:recipes` after first deploy
+- [ ] Smoke `GET /api/health` and `POST /api/plan`
