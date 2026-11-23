@@ -286,5 +286,90 @@
       "Add broth and spinach; toss with noodles."
     ],
     "estServings": 4
+  },
+  {
+    "id": "r_fresh_tomato_pasta",
+    "title": "Fresh Tomato Pasta",
+    "meals": ["dinner", "lunch"],
+    "ingredients": [
+      { "key": "pasta", "qty": 14, "unit": "oz" },
+      { "key": "tomato", "qty": 6, "unit": "ea" },
+      { "key": "garlic", "qty": 5, "unit": "clove" },
+      { "key": "olive_oil", "qty": 4, "unit": "tbsp" },
+      { "key": "parmesan", "qty": 0.33, "unit": "cup" }
+    ],
+    "tags": ["italian", "comfort", "budget", "staple", "pasta"],
+    "allergens": ["gluten", "dairy"],
+    "steps": [
+      "Boil pasta in salted water; reserve 1/2 cup pasta water.",
+      "Warm olive oil; soften sliced garlic; add chili flakes if desired.",
+      "Add chopped tomatoes with salt; simmer 8–10 minutes.",
+      "Toss pasta with sauce and pasta water; finish with Parmesan."
+    ],
+    "estServings": 2
+  },
+  {
+    "id": "r_chicken_tikka_masala",
+    "title": "Chicken Tikka Masala",
+    "meals": ["dinner"],
+    "ingredients": [
+      { "key": "chicken_thigh", "qty": 1.5, "unit": "lb" },
+      { "key": "tikka_sauce", "qty": 1, "unit": "jar" },
+      { "key": "rice", "qty": 1.5, "unit": "cup" },
+      { "key": "yogurt", "qty": 0.5, "unit": "cup" },
+      { "key": "frozen_veg_mix_no_peas", "qty": 2, "unit": "cup" },
+      { "key": "garlic", "qty": 2, "unit": "clove" }
+    ],
+    "tags": ["indian", "chicken", "comfort", "staple", "spicy"],
+    "allergens": ["dairy"],
+    "steps": [
+      "Optional: marinate chicken in yogurt and spice 15+ minutes.",
+      "Cook rice. Sear chicken until mostly done.",
+      "Pour in tikka sauce; simmer 10 minutes.",
+      "Serve with rice and frozen veg (no peas)."
+    ],
+    "estServings": 2
+  },
+  {
+    "id": "r_cheeseburgers",
+    "title": "Cheeseburgers with Potato Wedges",
+    "meals": ["lunch", "dinner"],
+    "ingredients": [
+      { "key": "ground_beef", "qty": 1.25, "unit": "lb" },
+      { "key": "burger_buns", "qty": 2, "unit": "ea" },
+      { "key": "cheddar", "qty": 4, "unit": "slice" },
+      { "key": "potato", "qty": 1.5, "unit": "lb" },
+      { "key": "olive_oil", "qty": 2, "unit": "tbsp" }
+    ],
+    "tags": ["american", "beef", "comfort", "staple", "high-protein"],
+    "allergens": ["gluten", "dairy"],
+    "steps": [
+      "Roast potato wedges at 425°F for ~30 minutes.",
+      "Form two thick patties; season; cook 4–5 min/side.",
+      "Melt cheese on patties; toast buns; assemble."
+    ],
+    "estServings": 2
+  },
+  {
+    "id": "r_sloppy_joes",
+    "title": "Sloppy Joes with Oven Fries",
+    "meals": ["lunch", "dinner"],
+    "ingredients": [
+      { "key": "ground_beef", "qty": 1.25, "unit": "lb" },
+      { "key": "onion", "qty": 1, "unit": "ea" },
+      { "key": "ketchup", "qty": 0.75, "unit": "cup" },
+      { "key": "burger_buns", "qty": 4, "unit": "ea" },
+      { "key": "potato", "qty": 1.5, "unit": "lb" },
+      { "key": "mustard", "qty": 1, "unit": "tbsp" },
+      { "key": "brown_sugar", "qty": 2, "unit": "tbsp" }
+    ],
+    "tags": ["american", "beef", "budget", "staple", "comfort"],
+    "allergens": ["gluten"],
+    "steps": [
+      "Roast fries at 425°F.",
+      "Brown beef with onion; stir in ketchup, mustard, brown sugar, splash of water.",
+      "Simmer until thick; pile on toasted buns."
+    ],
+    "estServings": 2
   }
 ]

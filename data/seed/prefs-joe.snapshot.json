@@ -1,0 +1,117 @@
+{
+  "likes": [
+    "chicken",
+    "potatoes",
+    "steak",
+    "pasta",
+    "burgers",
+    "sloppy joes",
+    "tikka masala",
+    "tomato pasta",
+    "frozen vegetables",
+    "rice"
+  ],
+  "dislikes": [
+    "peas"
+  ],
+  "allergies": [],
+  "taste": {
+    "chicken": 0.92,
+    "potatoes": 0.88,
+    "pasta": 0.86,
+    "steak": 0.84,
+    "beef": 0.8,
+    "budget": 0.9,
+    "comfort": 0.85,
+    "spicy": 0.55,
+    "indian": 0.78,
+    "italian": 0.75,
+    "american": 0.82,
+    "frozen-veg": 0.7,
+    "bland-friendly": 0.65,
+    "high-protein": 0.8
+  },
+  "recentRecipeIds": [
+    "r_fresh_tomato_pasta",
+    "r_chicken_tikka_masala",
+    "r_cheeseburgers",
+    "r_sloppy_joes",
+    "r_chicken_rice",
+    "r_tomato_pasta"
+  ],
+  "weeklyHistory": [
+    {
+      "at": "2026-11-16T18:00:00.000Z",
+      "label": "typical week before Kustie Nov 23 card",
+      "recipeIds": [
+        "r_fresh_tomato_pasta",
+        "r_chicken_tikka_masala",
+        "r_cheeseburgers",
+        "r_sloppy_joes",
+        "r_chicken_rice",
+        "r_tomato_pasta"
+      ],
+      "notes": "Baseline: repeats of tomato pasta, tikka, burgers, joes, chicken+rice."
+    }
+  ],
+  "staplesCookedWell": [
+    {
+      "id": "r_fresh_tomato_pasta",
+      "title": "Fresh tomato pasta",
+      "note": "Her reliable hit — garlic, tomatoes, olive oil, pasta."
+    },
+    {
+      "id": "r_chicken_tikka_masala",
+      "title": "Chicken tikka masala",
+      "note": "She is good at this; jar sauce OK if chicken is loaded."
+    },
+    {
+      "id": "r_cheeseburgers",
+      "title": "Cheeseburgers",
+      "note": "Thick patties, potato wedges or fries."
+    },
+    {
+      "id": "r_sloppy_joes",
+      "title": "Sloppy joes",
+      "note": "Ground beef, ketchup-mustard sauce, buns, fries."
+    }
+  ],
+  "cookingStyle": {
+    "skill": "comfortable-home-cook",
+    "freshProduce": "optional — frozen vegetables are normal",
+    "avoid": [
+      "peas",
+      "overly fussy plating",
+      "tiny diet portions"
+    ],
+    "goals": [
+      "branch out without blowing budget",
+      "new ideas and twists on chicken/potato/pasta/steak",
+      "keep flavor punchier than usual (garlic, chili, acid)"
+    ]
+  },
+  "profile": {
+    "household": "couple",
+    "people": [
+      {
+        "role": "woman",
+        "ageApprox": 25,
+        "weightLb": 160
+      },
+      {
+        "role": "man",
+        "ageApprox": 25,
+        "weightLb": 230
+      }
+    ],
+    "mealsPerDay": [
+      "lunch",
+      "dinner"
+    ],
+    "budgetBand": "cheap-to-mid",
+    "notes": "Portions should feed a 160 lb woman and 230 lb man. Prefer hearty servings over light plates."
+  },
+  "memoryBlurb": "Couple (25/25, ~160 lb woman + ~230 lb man). Love potatoes, steak, chicken, pasta. She nails fresh tomato pasta and chicken tikka masala; also solid at burgers, sloppy joes, frozen-veg sides. Dislikes peas. Budget cheap-to-mid. Want lunch+dinner plans that branch out with twists — not the same four hits on loop — while staying familiar enough to cook.",
+  "seededFrom": "data/seed/household-joe.json",
+  "updatedAt": "2026-11-23T23:09:07.411Z"
+}

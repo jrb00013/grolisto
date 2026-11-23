@@ -23,9 +23,16 @@ router.post('/', async (req, res, next) => {
         'When you learn a preference, end with a JSON line: {"prefsUpdate":{"likes":[],"allergies":[],"dislikes":[]}}',
         `Known prefs: ${JSON.stringify({
           likes: prefs.likes,
+          dislikes: prefs.dislikes,
           allergies: prefs.allergies,
+          taste: prefs.taste,
+          profile: prefs.profile,
+          staplesCookedWell: prefs.staplesCookedWell,
+          cookingStyle: prefs.cookingStyle,
+          memoryBlurb: prefs.memoryBlurb,
           recent: (prefs.recentRecipeIds || []).slice(0, 8),
         })}`,
+        'Remember this household past when suggesting meals: do not only repeat staples; propose twists/new plates in their cheap-to-mid lane, never peas.',
         context && Object.keys(context).length ? `Context: ${JSON.stringify(context)}` : '',
       ]
         .filter(Boolean)

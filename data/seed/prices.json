@@ -44,7 +44,15 @@
     "carrot": { "price": 1.19, "unit": "lb", "product": "Carrots" },
     "mushroom": { "price": 2.99, "unit": "8oz", "product": "White Mushrooms" },
     "quinoa": { "price": 4.99, "unit": "lb", "product": "Tri-Color Quinoa" },
-    "egg_noodles": { "price": 1.99, "unit": "12oz", "product": "Wide Egg Noodles" }
+    "egg_noodles": { "price": 1.99, "unit": "12oz", "product": "Wide Egg Noodles" },
+    "chicken_thigh": { "price": 3.99, "unit": "lb", "product": "Boneless Chicken Thighs" },
+    "tikka_sauce": { "price": 3.49, "unit": "jar", "product": "Tikka Masala Simmer Sauce" },
+    "parmesan": { "price": 3.99, "unit": "8oz", "product": "Grated Parmesan" },
+    "burger_buns": { "price": 2.49, "unit": "pack", "product": "Hamburger Buns 8ct" },
+    "ketchup": { "price": 2.29, "unit": "20oz", "product": "Tomato Ketchup" },
+    "mustard": { "price": 1.49, "unit": "8oz", "product": "Yellow Mustard" },
+    "brown_sugar": { "price": 2.19, "unit": "2lb", "product": "Light Brown Sugar" },
+    "frozen_veg_mix_no_peas": { "price": 2.49, "unit": "12oz", "product": "Frozen Broccoli Carrot Corn Blend" }
   },
   "store_tj_chelsea": {
     "eggs": { "price": 2.99, "unit": "dozen", "product": "Cage-Free Eggs" },

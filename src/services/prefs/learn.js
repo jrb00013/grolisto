@@ -26,14 +26,21 @@ export function scoreRecipe({ recipe, prefs, floor = config.noveltyFloor }) {
   const taste = prefs.taste || {};
   let util = 0;
   for (const t of tags) util += Number(taste[String(t).toLowerCase()] || 0);
+  const ingText = (recipe.ingredients || [])
+    .map((i) => (typeof i === 'string' ? i : [i?.key, i?.name, i?.term].filter(Boolean).join(' ')))
+    .join(' ')
+    .toLowerCase();
   for (const like of prefs.likes || []) {
-    if (recipe.title?.toLowerCase().includes(String(like).toLowerCase())) util += 0.5;
-    if ((recipe.ingredients || []).some((i) => String(i).toLowerCase().includes(String(like).toLowerCase()))) {
-      util += 0.35;
-    }
+    const needle = String(like).toLowerCase();
+    if (recipe.title?.toLowerCase().includes(needle)) util += 0.5;
+    if (ingText.includes(needle.replace(/\s+/g, '_')) || ingText.includes(needle)) util += 0.35;
+    if ((recipe.tags || []).some((t) => String(t).toLowerCase().includes(needle))) util += 0.25;
   }
   for (const d of prefs.dislikes || []) {
-    if (recipe.title?.toLowerCase().includes(String(d).toLowerCase())) util -= 0.8;
+    const needle = String(d).toLowerCase();
+    if (recipe.title?.toLowerCase().includes(needle)) util -= 0.8;
+    if (ingText.includes(needle)) util -= 1.2;
+    if ((recipe.tags || []).some((t) => String(t).toLowerCase().includes(needle))) util -= 0.5;
   }
   const allergens = new Set((prefs.allergies || []).map((a) => String(a).toLowerCase()));
   if ((recipe.allergens || []).some((a) => allergens.has(String(a).toLowerCase()))) {

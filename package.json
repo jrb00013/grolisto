@@ -8,6 +8,7 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "seed": "node scripts/seed.js",
+    "seed:household": "node scripts/seed.js --force",
     "index:recipes": "node scripts/index-recipes.js",
     "test": "node --test test/**/*.test.js",
     "lint": "node --check src/server.js && node --check src/app.js",
@@ -36,10 +37,16 @@
   "homepage": "https://github.com/jrb00013/grolisto#readme",
   "dependencies": {
     "@qdrant/js-client-rest": "^1.13.0",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
     "nanoid": "^5.1.0",
     "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10"
   }
 }

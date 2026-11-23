@@ -20,6 +20,11 @@ export function emptyPrefs() {
     taste: {},
     recentRecipeIds: [],
     weeklyHistory: [],
+    staplesCookedWell: [],
+    cookingStyle: {},
+    profile: {},
+    memoryBlurb: '',
+    seededFrom: null,
     updatedAt: null,
   };
 }
