@@ -1,0 +1,56 @@
+[
+  {
+    "id": "store_tj_chelsea",
+    "name": "Trader Joe's Chelsea",
+    "chain": "Trader Joe's",
+    "zip": "10001",
+    "lat": 40.7465,
+    "lng": -73.9936,
+    "distanceMiles": 0.4
+  },
+  {
+    "id": "store_wf_bryant",
+    "name": "Whole Foods Market Bryant Park",
+    "chain": "Whole Foods",
+    "zip": "10001",
+    "lat": 40.7532,
+    "lng": -73.9845,
+    "distanceMiles": 0.7
+  },
+  {
+    "id": "store_fairway_midtown",
+    "name": "Fairway Market Midtown",
+    "chain": "Fairway",
+    "zip": "10001",
+    "lat": 40.7498,
+    "lng": -73.9872,
+    "distanceMiles": 0.5
+  },
+  {
+    "id": "store_keyfood_chelsea",
+    "name": "Key Food Chelsea",
+    "chain": "Key Food",
+    "zip": "10001",
+    "lat": 40.7441,
+    "lng": -73.9958,
+    "distanceMiles": 0.6
+  },
+  {
+    "id": "store_foodtown_flatiron",
+    "name": "Foodtown Flatiron",
+    "chain": "Foodtown",
+    "zip": "10001",
+    "lat": 40.7412,
+    "lng": -73.9899,
+    "distanceMiles": 0.9
+  },
+  {
+    "id": "store_associated_w34",
+    "name": "Associated Supermarket W 34th",
+    "chain": "Associated",
+    "zip": "10001",
+    "lat": 40.7516,
+    "lng": -73.9939,
+    "distanceMiles": 0.3
+  }
+]
