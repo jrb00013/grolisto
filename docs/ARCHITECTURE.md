@@ -29,4 +29,4 @@ Express (src/app.js)
 | `scripts/` | Seed, index, smoke CLIs |
 | `test/` | Node unit tests |
 
-All secrets and model IDs live in env (see `.env.example`). See [sidecars/README.md](../sidecars/README.md) for install and CLI usage.
+All secrets and model IDs live in env (see `.env.example`). Sidecars use Poetry — see [sidecars/README.md](../sidecars/README.md).

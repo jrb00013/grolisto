@@ -1,15 +1,11 @@
-[build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "grolisto-python"
 version = "0.1.0"
 description = "Optional Python sidecars for Grolisto: LlamaIndex indexer and preference adapters"
-readme = "README.md"
-requires-python = ">=3.11"
-license = { text = "MIT" }
 authors = [{ name = "jrb00013" }]
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
 dependencies = []
 
 [project.optional-dependencies]
@@ -20,18 +16,30 @@ indexer = [
 adapters = [
   "numpy>=1.26.0",
 ]
-dev = [
-  "pytest>=8.0.0",
-  "ruff>=0.8.0",
-]
 
 [project.scripts]
 grolisto-index = "grolisto_indexer.cli:main"
 grolisto-export-adapter = "grolisto_adapters.export_tag_bias:main"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["grolisto_indexer*", "grolisto_adapters*"]
+[tool.poetry]
+packages = [
+  { include = "grolisto_indexer" },
+  { include = "grolisto_adapters" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+qdrant-client = { version = ">=1.12.0", optional = true }
+httpx = { version = ">=0.27.0", optional = true }
+numpy = { version = ">=1.26.0", optional = true }
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.0.0"
+ruff = ">=0.8.0"
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 line-length = 100
