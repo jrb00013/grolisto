@@ -25,4 +25,4 @@ Code: `src/services/rag/*`. Index: `npm run index:recipes`.
 
 ## Adapters
 
-`ADAPTER_WEIGHTS_PATH` → JSON tag bias sidecar (`src/services/adapters/loraStub.js`). PEFT / export stubs under `python/grolisto_adapters/`. Optional LlamaIndex indexer: `python/grolisto_indexer/` (see [python/README.md](../python/README.md)).
+`ADAPTER_WEIGHTS_PATH` → JSON tag bias sidecar (`src/services/adapters/loraStub.js`). PEFT / export stubs under `sidecars/grolisto_adapters/`. Optional LlamaIndex indexer: `sidecars/grolisto_indexer/` (see [sidecars/README.md](../sidecars/README.md)).

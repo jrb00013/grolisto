@@ -3,7 +3,7 @@ import { logger } from '../../lib/logger.js';
 
 /**
  * Small-adapter / LoRA hook — weights path from env only (ADAPTER_WEIGHTS_PATH).
- * Training/export lives in python/grolisto_adapters; runtime loads JSON sidecar if present.
+ * Training/export lives in sidecars/grolisto_adapters; runtime loads JSON sidecar if present.
  */
 export async function loadAdapterWeights() {
   const path = process.env.ADAPTER_WEIGHTS_PATH;
