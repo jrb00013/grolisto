@@ -14,11 +14,24 @@ sidecars/
 
 ## Install
 
+Requires [Poetry](https://python-poetry.org/).
+
 ```bash
 cd sidecars
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[indexer,adapters,dev]"
+poetry install --extras "indexer adapters"
+```
+
+Dev tools (pytest, ruff):
+
+```bash
+poetry install --extras "indexer adapters" --with dev
+```
+
+Run CLIs via Poetry:
+
+```bash
+poetry run grolisto-index --recipes ../data/seed/recipes.json
+poetry run grolisto-export-adapter --out ../data/adapters/tag_bias.json
 ```
 
 Keep API keys in the environment only (never in source). See the repo root `.env.example`.
@@ -34,8 +47,8 @@ Keep API keys in the environment only (never in source). See the repo root `.env
 
 ```bash
 # Index seed recipes into Qdrant (requires QDRANT_* + OPENROUTER_API_KEY)
-grolisto-index --recipes ../data/seed/recipes.json
+poetry run grolisto-index --recipes ../data/seed/recipes.json
 
 # Export a tag-bias sidecar for ADAPTER_WEIGHTS_PATH
-grolisto-export-adapter --out ../data/adapters/tag_bias.json
+poetry run grolisto-export-adapter --out ../data/adapters/tag_bias.json
 ```
