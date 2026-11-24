@@ -36,11 +36,21 @@ Hand-planned lunch/dinner cards (photos + recipes + PDF) live inside Grolisto:
 
 `npm run seed` loads household prefs + week cards. Chat uses the active Kustie week when you ask what to cook.
 
+## Repository layout
+
+| Path | Role |
+|---|---|
+| `src/` | Express API and services |
+| `public/` | UI + Kustie week cards |
+| `python/` | Optional indexer + adapter packages |
+| `data/seed/` | Offline stores, prices, recipes, weeks |
+| `docs/` | Design and ops docs |
+
 ## Stack
 
 - Express one-page UI + chat API + Kustie week cards
 - Scotr → Kroger Locations/Products (mock seed fallback)
-- RAG → Qdrant hybrid retrieve + rerank
+- RAG → Qdrant hybrid retrieve + rerank (optional Python indexer)
 - Planner math → [docs/MATH.md](docs/MATH.md)
 
 ## License
