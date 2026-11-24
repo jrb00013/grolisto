@@ -42,7 +42,7 @@ Hand-planned lunch/dinner cards (photos + recipes + PDF) live inside Grolisto:
 |---|---|
 | `src/` | Express API and services |
 | `public/` | UI + Kustie week cards |
-| `python/` | Optional indexer + adapter packages |
+| `sidecars/` | Optional Python indexer + adapter packages |
 | `data/seed/` | Offline stores, prices, recipes, weeks |
 | `docs/` | Design and ops docs |
 

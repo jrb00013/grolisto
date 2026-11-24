@@ -10,7 +10,7 @@ coverage/
 data/prefs/user-*.json
 !data/prefs/.gitkeep
 .python-venv/
-python/.venv/
+sidecars/.venv/
 __pycache__/
 *.pyc
 *.egg-info/

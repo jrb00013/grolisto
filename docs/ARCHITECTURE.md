@@ -12,7 +12,7 @@ Express (src/app.js)
     ├── Planner allocate (math + greedy / LLM)
     └── Weeks / Kustie cards
          │
-         └── optional python/ sidecars
+         └── optional sidecars/
                ├── grolisto_indexer  (embed / upsert / rerank)
                └── grolisto_adapters (tag-bias JSON for Node)
 ```
@@ -23,10 +23,10 @@ Express (src/app.js)
 |---|---|
 | `src/` | Node/Express API and services |
 | `public/` | One-page UI + Kustie week cards |
-| `python/` | Optional Python packages (`grolisto_indexer`, `grolisto_adapters`) |
+| `sidecars/` | Optional Python packages (`grolisto_indexer`, `grolisto_adapters`) |
 | `data/seed/` | Offline stores, prices, recipes, weeks |
 | `docs/` | API, RAG, Scotr, math, deployment |
 | `scripts/` | Seed, index, smoke CLIs |
 | `test/` | Node unit tests |
 
-All secrets and model IDs live in env (see `.env.example`). See [python/README.md](../python/README.md) for the Python install path.
+All secrets and model IDs live in env (see `.env.example`). See [sidecars/README.md](../sidecars/README.md) for install and CLI usage.
