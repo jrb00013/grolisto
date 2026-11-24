@@ -10,10 +10,14 @@ coverage/
 data/prefs/user-*.json
 !data/prefs/.gitkeep
 .python-venv/
+python/.venv/
 __pycache__/
 *.pyc
+*.egg-info/
 .pytest_cache/
 .ruff_cache/
+data/adapters/*.json
+!data/adapters/.gitkeep
 tmp/
 .cache/
 .env
